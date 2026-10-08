@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-08T23:56:42.532Z",
+  "title": "Design System: 리아나 · 조용한 순간",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Warm Sand",
+        "canonical": "#d6bb91",
+        "tonalRamp": [
+          "oklch(15.00% 0.0639 78.60)",
+          "oklch(26.43% 0.0639 78.60)",
+          "oklch(37.86% 0.0639 78.60)",
+          "oklch(49.29% 0.0639 78.60)",
+          "oklch(60.71% 0.0639 78.60)",
+          "oklch(72.14% 0.0639 78.60)",
+          "oklch(83.57% 0.0639 78.60)",
+          "oklch(95.00% 0.0639 78.60)"
+        ]
+      },
+      "bg": {
+        "role": "neutral",
+        "displayName": "Night Backdrop",
+        "canonical": "#13151b",
+        "tonalRamp": [
+          "oklch(15.00% 0.0125 270.71)",
+          "oklch(26.43% 0.0125 270.71)",
+          "oklch(37.86% 0.0125 270.71)",
+          "oklch(49.29% 0.0125 270.71)",
+          "oklch(60.71% 0.0125 270.71)",
+          "oklch(72.14% 0.0125 270.71)",
+          "oklch(83.57% 0.0125 270.71)",
+          "oklch(95.00% 0.0125 270.71)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Slate Panel",
+        "canonical": "#20232b",
+        "tonalRamp": [
+          "oklch(15.00% 0.0157 269.06)",
+          "oklch(26.43% 0.0157 269.06)",
+          "oklch(37.86% 0.0157 269.06)",
+          "oklch(49.29% 0.0157 269.06)",
+          "oklch(60.71% 0.0157 269.06)",
+          "oklch(72.14% 0.0157 269.06)",
+          "oklch(83.57% 0.0157 269.06)",
+          "oklch(95.00% 0.0157 269.06)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Warm White",
+        "canonical": "#f0ede8",
+        "tonalRamp": [
+          "oklch(15.00% 0.0074 80.72)",
+          "oklch(26.43% 0.0074 80.72)",
+          "oklch(37.86% 0.0074 80.72)",
+          "oklch(49.29% 0.0074 80.72)",
+          "oklch(60.71% 0.0074 80.72)",
+          "oklch(72.14% 0.0074 80.72)",
+          "oklch(83.57% 0.0074 80.72)",
+          "oklch(95.00% 0.0074 80.72)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Soft Slate Text",
+        "canonical": "#b3b5c1",
+        "tonalRamp": [
+          "oklch(15.00% 0.0171 278.43)",
+          "oklch(26.43% 0.0171 278.43)",
+          "oklch(37.86% 0.0171 278.43)",
+          "oklch(49.29% 0.0171 278.43)",
+          "oklch(60.71% 0.0171 278.43)",
+          "oklch(72.14% 0.0171 278.43)",
+          "oklch(83.57% 0.0171 278.43)",
+          "oklch(95.00% 0.0171 278.43)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Slate Line",
+        "canonical": "#393d49",
+        "tonalRamp": [
+          "oklch(15.00% 0.0214 270.76)",
+          "oklch(26.43% 0.0214 270.76)",
+          "oklch(37.86% 0.0214 270.76)",
+          "oklch(49.29% 0.0214 270.76)",
+          "oklch(60.71% 0.0214 270.76)",
+          "oklch(72.14% 0.0214 270.76)",
+          "oklch(83.57% 0.0214 270.76)",
+          "oklch(95.00% 0.0214 270.76)"
+        ]
+      },
+      "tool": {
+        "role": "neutral",
+        "displayName": "Utility Dark",
+        "canonical": "#191c24",
+        "tonalRamp": [
+          "oklch(15.00% 0.0162 268.94)",
+          "oklch(26.43% 0.0162 268.94)",
+          "oklch(37.86% 0.0162 268.94)",
+          "oklch(49.29% 0.0162 268.94)",
+          "oklch(60.71% 0.0162 268.94)",
+          "oklch(72.14% 0.0162 268.94)",
+          "oklch(83.57% 0.0162 268.94)",
+          "oklch(95.00% 0.0162 268.94)"
+        ]
+      },
+      "tool-hover": {
+        "role": "neutral",
+        "displayName": "Utility Lift",
+        "canonical": "#30313a",
+        "tonalRamp": [
+          "oklch(15.00% 0.0160 280.42)",
+          "oklch(26.43% 0.0160 280.42)",
+          "oklch(37.86% 0.0160 280.42)",
+          "oklch(49.29% 0.0160 280.42)",
+          "oklch(60.71% 0.0160 280.42)",
+          "oklch(72.14% 0.0160 280.42)",
+          "oklch(83.57% 0.0160 280.42)",
+          "oklch(95.00% 0.0160 280.42)"
+        ]
+      },
+      "accent-hover": {
+        "role": "primary",
+        "displayName": "Light Sand",
+        "canonical": "#ead2ac",
+        "tonalRamp": [
+          "oklch(15.00% 0.0569 79.21)",
+          "oklch(26.43% 0.0569 79.21)",
+          "oklch(37.86% 0.0569 79.21)",
+          "oklch(49.29% 0.0569 79.21)",
+          "oklch(60.71% 0.0569 79.21)",
+          "oklch(72.14% 0.0569 79.21)",
+          "oklch(83.57% 0.0569 79.21)",
+          "oklch(95.00% 0.0569 79.21)"
+        ]
+      },
+      "button-text": {
+        "role": "neutral",
+        "displayName": "Ink on Sand",
+        "canonical": "#242028",
+        "tonalRamp": [
+          "oklch(15.00% 0.0159 307.76)",
+          "oklch(26.43% 0.0159 307.76)",
+          "oklch(37.86% 0.0159 307.76)",
+          "oklch(49.29% 0.0159 307.76)",
+          "oklch(60.71% 0.0159 307.76)",
+          "oklch(72.14% 0.0159 307.76)",
+          "oklch(83.57% 0.0159 307.76)",
+          "oklch(95.00% 0.0159 307.76)"
+        ]
+      },
+      "scrollbar": {
+        "role": "neutral",
+        "displayName": "Muted Bronze",
+        "canonical": "#6a5e4d",
+        "tonalRamp": [
+          "oklch(15.00% 0.0303 76.48)",
+          "oklch(26.43% 0.0303 76.48)",
+          "oklch(37.86% 0.0303 76.48)",
+          "oklch(49.29% 0.0303 76.48)",
+          "oklch(60.71% 0.0303 76.48)",
+          "oklch(72.14% 0.0303 76.48)",
+          "oklch(83.57% 0.0303 76.48)",
+          "oklch(95.00% 0.0303 76.48)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "title": {
+        "displayName": "Settings Title",
+        "purpose": "Settings surface heading."
+      },
+      "body": {
+        "displayName": "Supporting Body",
+        "purpose": "Welcome supporting copy."
+      },
+      "label": {
+        "displayName": "Control Label",
+        "purpose": "Range labels, secondary actions, and footer."
+      },
+      "micro": {
+        "displayName": "Micro Text",
+        "purpose": "Status, debug layers, and supporting hint."
+      }
+    },
+    "shadows": [
+      {
+        "name": "start-action",
+        "value": "0 8px 30px #0003",
+        "purpose": "Soft primary action lift."
+      },
+      {
+        "name": "settings-surface",
+        "value": "0 16px 48px #0005",
+        "purpose": "Separate the settings overlay from the stage."
+      }
+    ],
+    "motion": [
+      {
+        "name": "utility-state",
+        "value": "background .2s, border-color .2s",
+        "purpose": "Utility hover and pressed feedback."
+      },
+      {
+        "name": "primary-state",
+        "value": "background .2s, transform .2s",
+        "purpose": "Primary hover color and 2px lift."
+      },
+      {
+        "name": "reduced-button-motion",
+        "value": "transition:none!important",
+        "purpose": "Disable button transitions under prefers-reduced-motion:reduce."
+      },
+      {
+        "name": "reduced-character-amplitude",
+        "value": "0.4",
+        "purpose": "Multiplier applied to breathing strength, head angle, and hair sway for reduced-motion preferences."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "600px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Start Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled action that starts the character experience.",
+      "html": "<button class=\"ds-primary\">탭하여 시작</button>",
+      "css": ".ds-primary{font-family:\"Segoe UI\",\"Malgun Gothic\",sans-serif;font-size:16px;background:var(--accent,#d6bb91);color:#242028;border:0;border-radius:28px;min-height:50px;padding:0 32px;font-weight:600;box-shadow:0 8px 30px #0003;cursor:pointer;transition:background .2s,transform .2s}.ds-primary:hover{background:#ead2ac;transform:translateY(-2px)}.ds-primary:disabled{cursor:wait;opacity:.65;transform:none}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-tool:focus-visible,.ds-range:focus-visible,.ds-checkbox:focus-visible{outline:2px solid var(--accent,#d6bb91);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none!important}}"
+    },
+    {
+      "name": "Secondary Action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Outlined reset or retry action.",
+      "html": "<button class=\"ds-secondary\">기본값으로 돌아가기</button>",
+      "css": ".ds-secondary{font-family:\"Segoe UI\",\"Malgun Gothic\",sans-serif;color:var(--text,#f0ede8);background:transparent;border:1px solid var(--line,#393d49);border-radius:20px;padding:9px 16px;font-size:12px;cursor:pointer}.ds-secondary:hover{border-color:var(--accent,#d6bb91)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-tool:focus-visible,.ds-range:focus-visible,.ds-checkbox:focus-visible{outline:2px solid var(--accent,#d6bb91);outline-offset:5px}"
+    },
+    {
+      "name": "Utility Circle",
+      "kind": "button",
+      "refersTo": "button-tool",
+      "description": "Compact sound control with authored SVG.",
+      "html": "<button class=\"ds-tool\" aria-label=\"배경음악 켜기\" aria-pressed=\"false\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M9 18V5l11-2v13M9 8l11-2\"/><ellipse cx=\"6\" cy=\"18\" rx=\"3\" ry=\"2.5\"/><ellipse cx=\"17\" cy=\"16\" rx=\"3\" ry=\"2.5\"/></svg></button>",
+      "css": ".ds-tool{font-family:\"Segoe UI\",\"Malgun Gothic\",sans-serif;color:var(--text,#f0ede8);width:44px;height:44px;background:#191c24;border:1px solid var(--line,#393d49);border-radius:50%;display:grid;place-items:center;cursor:pointer;transition:background .2s,border-color .2s}.ds-tool:hover,.ds-tool[aria-pressed=true]{background:#30313a;border-color:var(--accent,#d6bb91)}.ds-tool svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-tool:focus-visible,.ds-range:focus-visible,.ds-checkbox:focus-visible{outline:2px solid var(--accent,#d6bb91);outline-offset:5px}@media(max-width:600px){.ds-tool{width:40px;height:40px}}@media(prefers-reduced-motion:reduce){.ds-tool{transition:none!important}}"
+    },
+    {
+      "name": "Setting Range",
+      "kind": "input",
+      "description": "Native range with right-aligned tabular value.",
+      "html": "<label class=\"ds-setting\"><span>숨쉬기 주기 (초)<output for=\"ds-breath\">3.6</output></span><input class=\"ds-range\" id=\"ds-breath\" type=\"range\" min=\"2\" max=\"7\" step=\".1\" value=\"3.6\"></label>",
+      "css": ".ds-setting{font-family:\"Segoe UI\",\"Malgun Gothic\",sans-serif;display:block;color:var(--text,#f0ede8);font-size:12px;margin:15px 0;width:264px;max-width:100%}.ds-setting span{display:flex;justify-content:space-between;gap:10px}.ds-setting output{color:var(--accent,#d6bb91);font-variant-numeric:tabular-nums}.ds-range{width:100%;margin:10px 0 0;accent-color:var(--accent,#d6bb91);touch-action:pan-y}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-tool:focus-visible,.ds-range:focus-visible,.ds-checkbox:focus-visible{outline:2px solid var(--accent,#d6bb91);outline-offset:5px}"
+    },
+    {
+      "name": "Debug Checkbox",
+      "kind": "input",
+      "description": "Native toggle within the settings surface.",
+      "html": "<label class=\"ds-row\">레이어 목록 보기<input class=\"ds-checkbox\" type=\"checkbox\"></label>",
+      "css": ".ds-row{font-family:\"Segoe UI\",\"Malgun Gothic\",sans-serif;color:var(--text,#f0ede8);display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;margin:12px 0;width:264px;max-width:100%}.ds-checkbox{accent-color:var(--accent,#d6bb91);width:17px;height:17px}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-tool:focus-visible,.ds-range:focus-visible,.ds-checkbox:focus-visible{outline:2px solid var(--accent,#d6bb91);outline-offset:5px}"
+    },
+    {
+      "name": "Settings Surface",
+      "kind": "card",
+      "refersTo": "settings-panel",
+      "description": "Opaque independently scrolling settings container.",
+      "html": "<aside class=\"ds-panel\" aria-label=\"효과 설정\"><h2>움직임 조절</h2><p>작은 변화로 다른 분위기를 만들어보세요.</p></aside>",
+      "css": ".ds-panel{font-family:\"Segoe UI\",\"Malgun Gothic\",sans-serif;color:var(--text,#f0ede8);width:310px;max-width:calc(100vw - 32px);overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;background:var(--panel,#20232b);border:1px solid var(--line,#393d49);border-radius:14px;padding:22px;box-shadow:0 16px 48px #0005;scrollbar-width:thin;scrollbar-color:#6a5e4d var(--panel,#20232b)}.ds-panel h2{font-size:17px;margin:0 0 8px;font-weight:600}.ds-panel p{font-size:12px;color:var(--muted,#b3b5c1);line-height:1.7;margin:0 0 20px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Quiet Character Stage",
+    "overview": "The shipped interface gives the supplied character artwork the largest visual presence. A dark backdrop, warm restrained controls, and short Korean instructions support the quiet character experience committed in PRODUCT.md. The name describes the implemented world; it is not a new brand claim.\n\nControls occupy little space at rest. Settings open as an opaque, independently scrolling surface while the stage remains visible. The character is read directly from the supplied PSD; its original illustration and organic transparency carry the visual identity.",
+    "keyCharacteristics": [
+      "Dark full-viewport stage with a subtle central lightening.",
+      "Warm sand accent on actions, values, and focus indicators.",
+      "Compact circular utility controls and softly rounded settings surfaces.",
+      "Small Korean interface copy surrounding the character artwork."
+    ],
+    "rules": [
+      {
+        "name": "The Accent Feedback Rule",
+        "body": "Use sand to identify actions, editable values, and interaction feedback; let the artwork supply the screen's broad color variation.",
+        "section": "colors"
+      },
+      {
+        "name": "The Measured Values Rule",
+        "body": "Use tabular numerals for setting outputs and layer status so live updates do not shift their reading position.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do preserve the supplied PSD artwork, aspect ratio, and organic transparency.",
+      "Do use sand for actions, values, and visible keyboard focus.",
+      "Do keep utility chrome compact and settings independently scrollable.",
+      "Do preserve tabular setting values and reduced-motion behavior."
+    ],
+    "donts": [
+      "Don't substitute generated artwork for the supplied character PSD.",
+      "Don't replace the organic layer alpha with geometric cutouts.",
+      "Don't turn the small supporting text into competing display content."
+    ]
+  }
+}
