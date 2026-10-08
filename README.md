@@ -1,0 +1,19 @@
+# 리아나 · 조용한 순간
+
+브라우저에서 PSD를 직접 읽어 PixiJS WebGL 메쉬로 움직이는 캐릭터 페이지입니다. 앱 코드는 `index.html` 하나이며, PSD는 `assets/riana.psd`입니다. 제공된 `Reina_1.psd`를 이름만 바꾸어 사용했습니다.
+
+## 실행
+
+HTTP 서버로 저장소 루트를 서비스하세요. 예: `python -m http.server 8080` 후 `http://localhost:8080` 접속. GitHub Pages에서도 실행할 수 있습니다. 파일을 직접 열면 브라우저의 로컬 fetch 제한 때문에 PSD 파일 선택이 필요합니다. PixiJS 7.4.3과 ag-psd 27.0.0은 jsDelivr CDN에서 로드하므로 인터넷 연결이 필요합니다.
+
+시작 버튼 또는 캐릭터 화면을 탭하면 움직임과 합성 BGM이 시작됩니다. 오른쪽 위에서 음악과 효과 설정을 조절하세요. 옷의 불투명한 부분을 누르거나 드래그하면 메쉬가 변형됩니다. 효과 설정의 디버그를 켜면 레이어를 개별 표시/숨김할 수 있습니다.
+
+## 설정
+
+`index.html` 상단의 한국어 `CONFIG`에서 효과 강도, 주기, 스프링, 감쇠와 음악 음량을 변경하세요. `눌림.가슴중심`은 topwear 경계 내 상대 좌표입니다. 다른 캐릭터를 사용하면 이 좌표를 조절하세요. 설정 패널의 변경은 해당 세션에만 적용됩니다.
+
+PSD 순서를 유지하되 눈 레이어가 차지하던 슬롯만 흰자 → 홍채 → 속눈썹 순서로 교환합니다. 홍채는 흰자의 실제 alpha로 마스킹됩니다. 모든 레이어는 원본 PSD 좌표 기반의 메쉬이며, 그룹별 변형도 하나의 레이어 스택 안에서 처리합니다.
+
+실제 Live2D 모델/리깅 파일이 아닌 PSD 레이어 기반 변형입니다. PSD에 없는 가려진 그림을 새로 만들지는 않으므로 고개 회전과 변형은 작게 설정되어 있습니다. BGM은 외부 음원 없이 Web Audio로 합성합니다.
+
+참고 API: [ag-psd](https://github.com/Agamnentzar/ag-psd), [PixiJS SimplePlane](https://pixijs.download/v7.4.3/docs/PIXI.SimplePlane.html).
