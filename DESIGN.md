@@ -13,6 +13,7 @@ colors:
   accent-hover: "#ead2ac"
   button-text: "#242028"
   scrollbar: "#6a5e4d"
+  frame-edge: "#8b7c6459"
 typography:
   title:
     fontFamily: '"Segoe UI", "Malgun Gothic", sans-serif'
@@ -36,6 +37,7 @@ rounded:
   secondary: "20px"
   panel: "14px"
   message: "16px"
+  portrait: "16px"
   circle: "50%"
 spacing:
   tools: "8px"
@@ -72,6 +74,9 @@ components:
     rounded: "{rounded.panel}"
     padding: "22px"
     width: "310px"
+  portrait-frame:
+    backgroundColor: "transparent"
+    rounded: "{rounded.portrait}"
 ---
 
 # Design System: 리아나 · 조용한 순간
@@ -107,6 +112,7 @@ Cool dark neutrals frame the illustration, with a warm sand accent connecting ac
 - **Utility Dark** (`tool`) and **Utility Lift** (`tool-hover`): resting and hovered or pressed circles.
 - **Ink on Sand** (`button-text`): text on accent-filled actions.
 - **Muted Bronze** (`scrollbar`): narrow settings scrollbar thumb.
+- **Quiet Bronze Edge** (`frame-edge`): translucent border defining the portrait boundary.
 
 **The Accent Feedback Rule.** Use sand to identify actions, editable values, and interaction feedback; let the artwork supply the screen's broad color variation.
 
@@ -134,6 +140,8 @@ The settings panel is right-aligned at (24px), extends from (85px plus safe area
 
 At the observed (600px) breakpoint, the header uses (20px) side insets and (18px plus safe area) top inset; utility controls shrink from (44px) to (40px), panel right inset becomes (16px), and footer text becomes (11px). The stage maintains the PSD aspect ratio and recenters on resize, reserving top and bottom space for controls. This is a spatial composition, not a card grid or a reusable marketing-page template.
 
+The portrait frame follows the fitted artwork rather than a fixed card size. In PSD coordinates its fitting bounds add (18px) at either side and (24px) above the illustration, and crop (8px) from the bottom. A rounded WebGL stencil and the visible frame share the same screen-space bounds and (16px) radius. This is an outer portrait boundary; the character and eye contours still use their original alpha.
+
 ## Elevation & Depth
 
 The canvas background uses a radial gradient centered at (50% 47%), progressing from `#292b35` through `#1b1e26` to the base background. It supplies ambient stage depth without altering the artwork. Opaque tonal surfaces, fine borders, and diffuse black shadows distinguish interactive overlays.
@@ -141,6 +149,7 @@ The canvas background uses a radial gradient centered at (50% 47%), progressing 
 ### Shadow Vocabulary
 - **Start action:** `0 8px 30px #0003` gives the filled action a gentle lift.
 - **Settings surface:** `0 16px 48px #0005` separates the scrolling overlay from the stage.
+- **Portrait inner edge:** `inset 0 0 0 4px #13151b44` softens the fitted frame boundary. A (12px) bottom overlay fades from transparent to `#13151b99`.
 
 ## Shapes
 
@@ -171,6 +180,18 @@ Load failures use a centered opaque surface constrained to (360px) and (90vw), w
 ### Character Stage
 
 The supplied PSD is the signature visual component. Original layer coordinates, texture transparency, and illustration proportions survive viewport fitting. Breathing, gaze, blinking, hair, and touch deformation animate the character while the surrounding chrome stays steady. Reduced-motion preferences reduce breathing, head angle, and hair sway to (.4) of their configured amplitudes.
+
+### Portrait Frame
+
+A single-pixel quiet bronze edge, rounded corners, inset shading, and a short bottom fade present the supplied artwork as a portrait. The frame is noninteractive and hidden until the PSD is ready. Its matching stencil prevents the lower artwork edge and touch hit testing from escaping the visible boundary. The frame is a crop boundary, not an approximation of the subject's silhouette.
+
+### Character Motion
+
+The current default breathing strength is (.003) over (3.8s), with a small second harmonic (.12) and head follow (.95). Head movement uses a critically damped spring at response speed (7), shared rotation limited by the configured angle (1.05 degrees), and small parallax (2.4 PSD pixels). Hair roots remain pinned; delayed spring response (stiffness 28, damping 9), strength (.8), and restrained sway (.25) increase toward the free ends.
+
+Both irises share a single safe translation rather than separate eye-width offsets. Default gaze strength is (.8), response speed (7), with configured range limits of (1.8 PSD pixels horizontal, .35 upward, .65 downward), further softened by `tanh`. Real alpha samples cap added white exposure at (.025). Blinks occur between (2.6s) and (6s), last (.18s), close over the first (40%) and reopen over the remaining (60%). Their deformation axis follows each eye's alpha-derived incline, keeping iris, white, lash, and mask transformations aligned.
+
+Direct presses apply a local impulse and spring deformation inside the clothing while pinning the neckline, side seams, and lower edge. Cloth uses depth (10), radius (72), drag (.3), maximum drag (38), stiffness (105), and damping (13). A separate underdamped chest response uses impulse (110), stiffness (58), damping (4.8), inertia (.9), and radius (90); displacement is bounded to (22 PSD pixels) per axis. Reduced motion also scales the click impulse by (.4), and resetting controls preserves those reduced-motion defaults.
 
 ## Do's and Don'ts
 
