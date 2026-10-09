@@ -3,24 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#13151b">
+<meta name="theme-color" content="#150d14">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
 <title>레이나 · 마사지</title>
 <style>
-:root{color-scheme:dark;--bg:#13151b;--panel:#20232b;--text:#f0ede8;--muted:#b3b5c1;--line:#393d49;--accent:#d6bb91;font-family:"Segoe UI","Malgun Gothic",sans-serif}
+:root{color-scheme:dark;--bg:#150d14;--panel:#22161f;--text:#f6eef2;--muted:#c3aebb;--line:#47303f;--accent:#f4a6c2;--love:#ff5c96;--love-soft:#ffb3cf;--calm:#7fdcc3;--calm-soft:#c4f2e4;--story:"Gowun Batang","Batang",serif;font-family:"Segoe UI","Malgun Gothic",sans-serif}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:var(--bg);color:var(--text)}
 body{user-select:none;-webkit-user-select:none}button,input{font:inherit}button{color:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible,input:focus-visible,label:focus-within{outline:2px solid var(--accent);outline-offset:5px}::selection{background:var(--accent);color:var(--bg)}
-#stage{position:absolute;inset:0;touch-action:none;background:radial-gradient(ellipse at 50% 47%,#292b35 0%,#1b1e26 40%,#13151b 78%)}#stage canvas{display:block;width:100%;height:100%;touch-action:none}
-#frame{position:absolute;z-index:1;border:1px solid #8b7c6459;border-radius:16px;pointer-events:none;overflow:hidden;box-shadow:inset 0 0 0 4px #13151b44}#frame::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(transparent,#13151b99)}
-header{position:absolute;z-index:2;top:calc(26px + env(safe-area-inset-top));left:32px;right:32px;display:flex;align-items:center;justify-content:space-between;pointer-events:none}h1{font-family:Georgia,"Batang",serif;font-weight:400;font-size:25px;margin:0;letter-spacing:.08em}header p{margin:7px 0 0;color:var(--muted);font-size:12px;letter-spacing:.1em}.tools{display:flex;gap:8px;pointer-events:auto}.tool{width:44px;height:44px;background:#191c24;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:background .2s,border-color .2s}.tool:hover,.tool[aria-pressed=true]{background:#30313a;border-color:var(--accent)}svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-footer{position:absolute;z-index:2;bottom:calc(22px + env(safe-area-inset-bottom));left:24px;right:24px;text-align:center;color:var(--muted);font-size:12px;pointer-events:none}footer .sub{margin-top:8px;color:#d6bb91;font-size:11px;letter-spacing:.1em}
+#stage{position:absolute;inset:0;touch-action:none;background:radial-gradient(ellipse at 50% 45%,#33202d 0%,#1f141c 42%,#150d14 80%)}#stage canvas{display:block;width:100%;height:100%;touch-action:none}
+#frame{position:absolute;z-index:1;border:1px solid #f4a6c230;border-radius:16px;pointer-events:none;overflow:hidden;box-shadow:inset 0 0 0 4px #150d1444}#frame::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(transparent,#150d1499)}
+header{position:absolute;z-index:2;top:calc(26px + env(safe-area-inset-top));left:32px;right:32px;display:flex;align-items:center;justify-content:space-between;pointer-events:none}h1{font-family:var(--story);font-weight:700;font-size:25px;margin:0;letter-spacing:.08em}header p{margin:7px 0 0;color:var(--muted);font-size:12px;letter-spacing:.1em}.tools{display:flex;gap:8px;pointer-events:auto}.tool{width:44px;height:44px;background:#1d121a;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:background .2s,border-color .2s}.tool:hover,.tool[aria-pressed=true]{background:#33202d;border-color:var(--accent)}svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+footer{position:absolute;z-index:2;bottom:calc(22px + env(safe-area-inset-bottom));left:24px;right:24px;text-align:center;color:var(--muted);font-size:12px;pointer-events:none}footer .sub{margin-top:8px;color:var(--accent);font-size:11px;letter-spacing:.1em}
 #heat{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;background:radial-gradient(ellipse 72% 64% at 50% 52%,transparent 50%,#ff3d7f2e 76%,#ff2f7266 100%)}
 #flash{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 55%,#fff6fa 0%,#ffb3cf 45%,#ff5c96 100%)}
-#voice{position:absolute;z-index:3;left:0;top:0;max-width:min(240px,60vw);padding:10px 16px;border-radius:18px 18px 18px 6px;background:#fff1f5f2;color:#7a2346;font-size:14px;font-weight:600;line-height:1.5;letter-spacing:.02em;box-shadow:0 10px 28px #0006,0 0 0 1px #ff9ec055;pointer-events:none;opacity:0;transform-origin:0 100%;white-space:pre-line}
-#meter{width:min(340px,76vw);margin:0 auto 12px}.meter-top{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text);margin-bottom:7px}#meterHeart{width:18px;height:18px;color:#ff5c96;display:grid;place-items:center}#meterHeart svg{width:17px;height:17px;fill:currentColor;stroke:none}#stageLabel{color:#ffb3cf;letter-spacing:.08em}#arousalValue{margin-left:auto;font-variant-numeric:tabular-nums;color:#ff8fb6;font-weight:600}
-.meter-bar{height:8px;border-radius:8px;background:#ffffff14;box-shadow:inset 0 0 0 1px #ff8fb633;overflow:hidden}#arousalFill{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#ff9ec0,#ff4f8b 60%,#ff2a6d)}#meter.max #arousalFill{background:linear-gradient(90deg,#ffe0eb,#ff4f8b 50%,#ff1f63)}
-#welcome{position:absolute;z-index:3;bottom:calc(86px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);text-align:center;width:min(360px,90vw)}#welcome p{font-size:13px;color:var(--muted);margin:0 0 17px;line-height:1.7}.primary{background:var(--accent);color:#242028;border:0;border-radius:28px;min-height:50px;padding:0 32px;font-weight:600;box-shadow:0 8px 30px #0003;transition:background .2s,transform .2s}.primary:hover{background:#ead2ac;transform:translateY(-2px)}.primary:disabled{cursor:wait;opacity:.65;transform:none}
-#message{position:absolute;z-index:4;top:50%;left:50%;transform:translate(-50%,-50%);max-width:90vw;width:360px;text-align:center;padding:24px;background:var(--panel);border:1px solid var(--line);border-radius:16px}#message p{line-height:1.7;font-size:14px;color:var(--muted)}#message label{display:inline-block;padding:12px 20px;background:var(--accent);color:#242028;border-radius:24px;cursor:pointer}#file{position:absolute;width:1px;height:1px;opacity:0}#loading{position:absolute;z-index:2;top:48%;left:50%;transform:translate(-50%,-50%);color:var(--muted);font-size:13px;text-align:center}progress{display:block;width:170px;height:3px;margin:15px auto;accent-color:var(--accent)}
-#panel{position:absolute;z-index:5;top:calc(85px + env(safe-area-inset-top));right:24px;bottom:calc(65px + env(safe-area-inset-bottom));width:310px;max-width:calc(100vw - 32px);overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 16px 48px #0005;scrollbar-width:thin;scrollbar-color:#6a5e4d var(--panel)}#panel h2{font-size:17px;margin:0 0 8px;font-weight:600}#panel p{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 20px}#panel h3{font-size:13px;font-weight:600;margin:24px 0 14px;padding-top:18px;border-top:1px solid var(--line)}.setting{display:block;font-size:12px;margin:15px 0}.setting span{display:flex;justify-content:space-between;gap:10px}.setting output{color:var(--accent);font-variant-numeric:tabular-nums}.setting input{width:100%;margin:10px 0 0;accent-color:var(--accent);touch-action:pan-y}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;margin:12px 0}.row input{accent-color:var(--accent);width:17px;height:17px}.row small{color:var(--muted)}.secondary{background:transparent;border:1px solid var(--line);border-radius:20px;padding:9px 16px;font-size:12px}.secondary:hover{border-color:var(--accent)}#layers .row{font-size:11px}#layers label{display:flex;align-items:center;gap:9px}#stats{font-variant-numeric:tabular-nums;color:var(--muted);font-size:11px;margin-top:18px}[hidden]{display:none!important}
+#hud{position:absolute;z-index:3;left:32px;top:50%;transform:translateY(-50%);width:212px;padding:16px 16px 14px;background:#1d121acc;border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:none;box-shadow:0 14px 36px #0007}
+.gauge{margin-bottom:14px}.g-head{display:flex;align-items:center;gap:7px;font-size:12px;margin-bottom:7px;color:var(--text)}.g-head svg{width:16px;height:16px;fill:currentColor;stroke:none;flex:none}.g-head output{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:700;font-size:13px}.g-track{position:relative;height:10px;border-radius:10px;background:#ffffff12;overflow:hidden}.g-track::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(25% - 1px),#150d14bb calc(25% - 1px) 25%)}.g-fill{position:absolute;inset:0 auto 0 0;width:0;border-radius:inherit}.g-stage{margin-top:6px;font-size:11px;letter-spacing:.06em}
+#gArousal svg,#gArousal output{color:var(--love)}#gArousal .g-fill{background:linear-gradient(90deg,#ff9ec0,#ff4f8b 60%,#ff2a6d)}#gArousal .g-stage{color:var(--love-soft)}#gSatisfy svg,#gSatisfy output{color:var(--calm)}#gSatisfy .g-fill{background:linear-gradient(90deg,#c9f3e6,#6fd6b8 60%,#3fbf9c)}#gSatisfy .g-stage{color:var(--calm-soft)}.gauge.max .g-fill{animation:shine .7s ease-in-out infinite alternate}@keyframes shine{to{filter:brightness(1.3)}}
+#stroke{padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}.s-head{display:flex;justify-content:space-between;margin-bottom:7px}#strokeLabel{color:var(--text)}.s-track{position:relative;height:6px;border-radius:6px;background:#ffffff12}#strokeSweet{position:absolute;top:0;bottom:0;border-radius:6px;background:#7fdcc340;box-shadow:inset 0 0 0 1px #7fdcc380}#strokeNeedle{position:absolute;top:-3px;left:0;width:3px;height:12px;border-radius:2px;background:var(--text);transform:translateX(-50%);transition:left .12s linear}#strokeNeedle.rough{background:#ff6b6b}#strokeNeedle.good{background:var(--calm)}
+#dialog{position:absolute;z-index:3;left:50%;top:0;transform:translateX(-50%);width:min(640px,calc(100vw - 32px));min-height:74px;padding:19px 22px 15px;background:linear-gradient(180deg,#26161fec,#1a1017f5);border:1px solid #f4a6c244;border-radius:14px;pointer-events:none;box-shadow:0 14px 36px #0008;transition:opacity .6s}#dialog.idle{opacity:.5}#dialog .name{position:absolute;top:-12px;left:18px;padding:3px 14px;border-radius:999px;background:var(--accent);color:#2a1020;font-size:12px;font-weight:700;letter-spacing:.12em}#dialogText{font-family:var(--story);font-size:16px;line-height:1.6;min-height:1.6em}#dialog .next{position:absolute;right:18px;bottom:12px;width:7px;height:7px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(45deg);animation:bob 1s ease-in-out infinite}@keyframes bob{50%{translate:0 3px}}
+.pop{position:absolute;z-index:3;pointer-events:none;font-size:13px;font-weight:700;padding:3px 11px;border-radius:999px;white-space:nowrap;translate:-50% -100%}.pop.love{background:var(--love);color:#fff}.pop.calm{background:var(--calm);color:#0f2a23}.pop.rough{background:#3a1d24;color:#ff9a9a;border:1px solid #ff6b6b88}
+#zoneTag{position:absolute;z-index:3;left:0;top:0;pointer-events:none;font-size:11px;padding:3px 10px;border-radius:999px;background:#1d121ae0;border:1px solid var(--line);white-space:nowrap}#zoneTag.love{color:var(--love-soft);border-color:#ff5c9666}#zoneTag.calm{color:var(--calm-soft);border-color:#7fdcc366}
+@media(max-width:899px){#hud{top:calc(72px + env(safe-area-inset-top));left:16px;right:16px;transform:none;width:auto;display:grid;grid-template-columns:1fr 1fr;column-gap:16px;padding:12px 14px 11px}.gauge{margin-bottom:9px}#stroke{grid-column:1/-1;padding-top:9px}#dialogText{font-size:14px}#dialog{padding:17px 18px 13px;min-height:64px}}
+#welcome{position:absolute;z-index:3;bottom:calc(86px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);text-align:center;width:min(360px,90vw)}#welcome p{font-size:13px;color:var(--muted);margin:0 0 17px;line-height:1.7}.primary{background:var(--accent);color:#2a1020;border:0;border-radius:28px;min-height:50px;padding:0 32px;font-weight:600;box-shadow:0 8px 30px #0003;transition:background .2s,transform .2s}.primary:hover{background:#ffc3d8;transform:translateY(-2px)}.primary:disabled{cursor:wait;opacity:.65;transform:none}
+#message{position:absolute;z-index:4;top:50%;left:50%;transform:translate(-50%,-50%);max-width:90vw;width:360px;text-align:center;padding:24px;background:var(--panel);border:1px solid var(--line);border-radius:16px}#message p{line-height:1.7;font-size:14px;color:var(--muted)}#message label{display:inline-block;padding:12px 20px;background:var(--accent);color:#2a1020;border-radius:24px;cursor:pointer}#file{position:absolute;width:1px;height:1px;opacity:0}#loading{position:absolute;z-index:2;top:48%;left:50%;transform:translate(-50%,-50%);color:var(--muted);font-size:13px;text-align:center}progress{display:block;width:170px;height:3px;margin:15px auto;accent-color:var(--accent)}
+#panel{position:absolute;z-index:5;top:calc(85px + env(safe-area-inset-top));right:24px;bottom:calc(65px + env(safe-area-inset-bottom));width:310px;max-width:calc(100vw - 32px);overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 16px 48px #0005;scrollbar-width:thin;scrollbar-color:#7a4a63 var(--panel)}#panel h2{font-size:17px;margin:0 0 8px;font-weight:600}#panel p{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 20px}#panel h3{font-size:13px;font-weight:600;margin:24px 0 14px;padding-top:18px;border-top:1px solid var(--line)}.setting{display:block;font-size:12px;margin:15px 0}.setting span{display:flex;justify-content:space-between;gap:10px}.setting output{color:var(--accent);font-variant-numeric:tabular-nums}.setting input{width:100%;margin:10px 0 0;accent-color:var(--accent);touch-action:pan-y}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;margin:12px 0}.row input{accent-color:var(--accent);width:17px;height:17px}.row small{color:var(--muted)}.secondary{background:transparent;border:1px solid var(--line);border-radius:20px;padding:9px 16px;font-size:12px}.secondary:hover{border-color:var(--accent)}#layers .row{font-size:11px}#layers label{display:flex;align-items:center;gap:9px}#stats{font-variant-numeric:tabular-nums;color:var(--muted);font-size:11px;margin-top:18px}[hidden]{display:none!important}
 @media(max-width:600px){header{left:20px;right:20px;top:calc(18px + env(safe-area-inset-top))}h1{font-size:21px}header p{font-size:11px}.tool{width:40px;height:40px}#panel{right:16px}footer{font-size:11px;bottom:calc(18px + env(safe-area-inset-bottom))}#welcome{bottom:calc(82px + env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){button{transition:none!important}}
 </style>
@@ -28,31 +34,47 @@ footer{position:absolute;z-index:2;bottom:calc(22px + env(safe-area-inset-bottom
 // ━━━ 한국어 CONFIG: 이곳의 숫자만 바꾸면 효과를 조절할 수 있습니다. ━━━
 const CONFIG = {
   파일: { PSD: './assets/riana.psd', 최대용량MB: 64 },
-  화면: { 여백: 0.06, 최대해상도배율: 2, 디버그: false, 프레임반경: 16, 하단잘라내기: 8 },
+  // 좁은화면최소폭·좁은화면중심X: 세로로 긴 화면에서 양옆(팔 끝)을 잘라 캐릭터를 크게 보여줄 때의 최소 폭과 중심 (PSD px).
+  화면: { 여백: 0.06, 최대해상도배율: 2, 디버그: false, 프레임반경: 16, 하단잘라내기: 8, 좁은화면최소폭: 620, 좁은화면중심X: 470 },
   숨쉬기: { 세기: 0.003, 주기: 3.8, 머리따라가기: 0.95 },
   // 양쪽 눈에 같은 PSD 픽셀 이동량을 적용합니다. 눈별 폭으로 계산하지 않습니다.
   시선: { 세기: 0.8, 반응속도: 7, 좌우범위: 1.8, 위범위: 0.35, 아래범위: 0.65, 흰자노출한도: 0.025 },
   깜빡임: { 사용: false, 최소간격: 2.6, 최대간격: 6, 시간: 0.18 },
   고개: { 각도: 1.05, 시차: 2.4, 반응속도: 7 },
   머리카락: { 세기: 0.8, 스프링: 28, 감쇠: 9, 살랑임: 0.25 },
-  // 드래그: 손에 옷이 달라붙는 정도. 미끄러짐: 손이 표면을 미끄러지는 속도(클수록 문지르는 느낌).
-  눌림: { 세기: 13, 반경: 84, 드래그: 0.5, 최대끌림: 42, 스프링: 105, 감쇠: 13, 미끄러짐: 2.2, 문지름출렁: 1.2, 최대출렁: 28,
+  // 드래그: 손에 달라붙는 정도(1이면 손과 똑같이 따라옴). 미끄러짐: 손이 표면을 미끄러지는 속도(0에 가까울수록 꽉 잡은 느낌).
+  // 최대끌림을 넘게 손을 움직였을 때만 접촉점이 손을 따라 이동합니다.
+  눌림: { 세기: 13, 반경: 96, 드래그: 0.9, 최대끌림: 58, 스프링: 220, 감쇠: 26, 미끄러짐: 0.15, 문지름출렁: 0.9, 최대출렁: 32,
     // topwear 경계 안의 상대 좌표 (0~1). 캐릭터가 바뀌면 조절하세요.
-    가슴중심: [{ x: 0.27, y: 0.41 }, { x: 0.72, y: 0.26 }], 가슴반경: 90, 가슴관성: 1,
+    가슴중심: [{ x: 0.27, y: 0.41 }, { x: 0.72, y: 0.26 }], 가슴반경: 90, 가슴관성: 1.1,
     클릭탄성: 120, 가슴스프링: 58, 가슴감쇠: 4.8 },
   // 흥분도는 0~100. 가슴을 누르고(초당) 문지를수록(화면 1000px/초 기준) 오릅니다.
-  흥분: { 배율: 1, 터치: 3, 누르기: 2.5, 문지르기: 9, 감소: 3, 감소대기: 1.8, 절정유지: 3.2, 여운: 40 },
+  // 다른부위: 흥분도가 높을 때 어깨·팔·허리를 만져도 오르는 양(초당).
+  흥분: { 배율: 1, 터치: 3, 누르기: 2.5, 문지르기: 9, 다른부위: 1.5, 감소: 3, 감소대기: 1.8, 절정유지: 3.2, 여운: 40 },
+  // 만족도는 0~100. 어깨·팔·허리를 적정속도(화면 px/초)로 주무르면 초당 상승만큼 오르고,
+  // 거칠기한계보다 빠르면 오히려 내려갑니다. 가슴은 가슴비율만큼만 오릅니다.
+  만족: { 배율: 1, 상승: 7, 감소: 1.2, 감소대기: 3, 적정속도: [110, 520], 거칠기한계: 950, 가슴비율: 0.3, 극락유지: 3, 여운: 75 },
+  // 팔주무름: 팔을 잡고 끌 때 살이 따라오는 비율.
+  부위: { 팔주무름: 0.3 },
   // 홍조선: face 레이어 안의 상대 좌표 (0~1). 홍조가 그려질 사선 띠의 양 끝입니다.
-  반응: { 팔움찔: 1, 팔최대각: 6, 움찔빈도: 1, 눈감기: 0.32, 입벌림: 0.45, 홍조: 1, 홍조선: [{ x: 0.2, y: 0.81 }, { x: 0.95, y: 0.51 }] },
+  반응: { 팔움찔: 1, 팔최대각: 6, 움찔빈도: 1, 눈감기: 0.32, 입벌림: 0.45, 홍조: 1, 하트눈: 1, 나른함: 1.2, 홍조선: [{ x: 0.2, y: 0.81 }, { x: 0.95, y: 0.51 }] },
   하트: { 양: 1, 최대: 160 },
   효과음: { 음량: 0.6 },
-  // 단계별 대사. 줄을 추가·수정해도 됩니다. 간격은 대사 사이 최소 초.
-  대사: { 간격: 2.2,
+  // 단계별 대사. 줄을 추가·수정해도 됩니다. 간격은 대사 사이 최소 초, 글자속도는 초당 글자 수.
+  // 평온~절정은 흥분도, 뭉침~극락은 만족도 단계입니다. 아픔은 너무 세게 주물렀을 때.
+  대사: { 간격: 2.2, 글자속도: 30,
+    시작: ['오늘도 잘 부탁드려요. 어디부터 풀어주실 거예요?'],
     평온: ['앗…!', '거, 거기는…', '마사지… 맞는 거죠?', '갑자기 만지면…'],
     두근: ['흐읏…', '손이… 뜨거워요…', '자꾸 그렇게 문지르면…', '읏… 간지러워요…'],
     달아오름: ['하아… 하아…', '이상해져요…', '거기… 약하단 말이에요…', '머리가 멍해져요…'],
     한계: ['더는… 안 돼요…♥', '흐아앗…♥', '그, 그만… 아니, 조금만 더…', '몸이… 떨려요…♥'],
-    절정: ['~~~~~~ッ♥!!', '흐아아앗…♥♥'] },
+    절정: ['~~~~~~ッ♥!!', '흐아아앗…♥♥'],
+    뭉침: ['아… 거기 많이 뭉쳐 있었어요.', '으음… 조금 아파요…', '손이 크시네요…'],
+    풀림: ['하아… 풀리는 느낌이에요…', '거기, 좋아요…', '조금만 더 세게 해주세요…'],
+    시원: ['시원해요…♪', '으응… 녹을 것 같아요…', '손재주가 좋으시네요…'],
+    노곤: ['졸려요… 너무 좋아서…', '하암… 계속 해주세요…', '몸이 노곤노곤해요…'],
+    극락: ['하아아… 극락이에요…♪', '이대로… 잠들 것 같아요…'],
+    아픔: ['아, 아파요…!', '너무 세요…!', '살살… 해주세요…'] },
   음악: { 음량: 0.32 },
 };
 </script>
@@ -60,15 +82,21 @@ const CONFIG = {
 <body>
 <main id="stage" aria-label="마우스와 터치에 반응하는 레이나 캐릭터"></main>
 <div id="frame" hidden aria-hidden="true"></div>
-<div id="heat" aria-hidden="true"></div><div id="flash" aria-hidden="true"></div><div id="voice" aria-live="polite"></div>
+<div id="heat" aria-hidden="true"></div><div id="flash" aria-hidden="true"></div><div id="zoneTag" hidden aria-hidden="true"></div>
+<aside id="hud" hidden aria-label="레이나 상태">
+<div class="gauge" id="gArousal" role="meter" aria-label="흥분도" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="g-head"><svg id="meterHeart" viewBox="0 0 24 24"><path d="M12 21C5 15.5 2 12 2 8.2 2 5.3 4.3 3 7.1 3c2 0 3.6 1 4.9 2.8C13.3 4 14.9 3 16.9 3 19.7 3 22 5.3 22 8.2c0 3.8-3 7.3-10 12.8z"/></svg><span>흥분도</span><output id="arousalValue">0</output></div><div class="g-track"><i class="g-fill" id="arousalFill"></i></div><div class="g-stage" id="stageLabel">평온</div></div>
+<div class="gauge" id="gSatisfy" role="meter" aria-label="만족도" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="g-head"><svg id="calmIcon" viewBox="0 0 24 24"><path d="M12 2C12.9 7.6 16.4 11.1 22 12 16.4 12.9 12.9 16.4 12 22 11.1 16.4 7.6 12.9 2 12 7.6 11.1 11.1 7.6 12 2Z"/></svg><span>만족도</span><output id="satisfyValue">0</output></div><div class="g-track"><i class="g-fill" id="satisfyFill"></i></div><div class="g-stage" id="satisfyLabel">뭉침</div></div>
+<div id="stroke"><div class="s-head"><span>손놀림</span><span id="strokeLabel">—</span></div><div class="s-track"><span id="strokeSweet"></span><i id="strokeNeedle"></i></div></div>
+</aside>
+<div id="dialog" hidden aria-live="polite"><span class="name">레이나</span><div id="dialogText"></div><i class="next" aria-hidden="true"></i></div>
 <header><div><h1>레이나</h1><p>조용히, 당신의 곁에</p></div><div class="tools">
 <button class="tool" id="sound" aria-label="배경음악 켜기" aria-pressed="false" title="배경음악"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13M9 8l11-2"/><ellipse cx="6" cy="18" rx="3" ry="2.5"/><ellipse cx="17" cy="16" rx="3" ry="2.5"/></svg></button>
-<button class="tool" id="settings" aria-label="효과 설정 열기" aria-expanded="false" aria-controls="panel" title="효과 설정"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#191c24"/><circle cx="15" cy="17" r="3" fill="#191c24"/></svg></button>
+<button class="tool" id="settings" aria-label="효과 설정 열기" aria-expanded="false" aria-controls="panel" title="효과 설정"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#1d121a"/><circle cx="15" cy="17" r="3" fill="#1d121a"/></svg></button>
 </div></header>
 <div id="loading" role="status">레이나를 불러오는 중<progress id="progress"></progress></div>
 <div id="message" hidden role="alert"><strong>캐릭터를 불러오지 못했어요</strong><p id="errorText"></p><label for="file" tabindex="0">PSD 파일 선택</label><input type="file" id="file" accept=".psd"><p>파일은 이 브라우저에서만 읽습니다.</p><button class="secondary" id="retry">다시 불러오기</button></div>
 <div id="welcome"><p id="intro">레이나의 마사지 시간이에요.</p><button id="start" class="primary" disabled>불러오는 중…</button></div>
-<footer id="hint"><div id="meter" hidden role="meter" aria-label="레이나의 흥분도" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="meter-top"><span id="meterHeart"><svg viewBox="0 0 24 24"><path d="M12 21C5 15.5 2 12 2 8.2 2 5.3 4.3 3 7.1 3c2 0 3.6 1 4.9 2.8C13.3 4 14.9 3 16.9 3 19.7 3 22 5.3 22 8.2c0 3.8-3 7.3-10 12.8z"/></svg></span><span>흥분도</span><span id="stageLabel">평온</span><output id="arousalValue">0%</output></div><div class="meter-bar"><i id="arousalFill"></i></div></div><div id="hintMain">마우스를 움직여 눈을 맞춰보세요</div><div class="sub">가슴을 누르거나 문질러보세요</div></footer>
+<footer id="hint"><div id="hintMain">마우스를 움직여 눈을 맞춰보세요</div><div class="sub">가슴은 흥분도 · 어깨와 팔, 허리는 만족도가 올라가요</div></footer>
 <aside id="panel" hidden aria-label="효과 설정"><h2>움직임 조절</h2><p>작은 변화로 다른 분위기를 만들어보세요.</p><div id="controls"></div><button class="secondary" id="reset">기본값으로 돌아가기</button><h3>디버그</h3><label class="row">레이어 목록 보기<input id="debug" type="checkbox"></label><div id="layers" hidden></div><div id="stats"></div></aside>
 <script>
 'use strict';
@@ -88,8 +116,13 @@ let press=null,pressSpring={x:0,y:0,z:0,vx:0,vy:0,vz:0},chest=[];
 let audioContext,master,musicOn=false,musicTimer,nextNote=0,noteIndex=0;
 // 반응 상태: 흥분도(0~100), 화면용 부드러운 값(heat 0~1), 팔·몸 움찔 스프링, 하트 파티클.
 let arousal=0,heat=0,touchLevel=0,idle=0,climax=0,climaxTimer=0,shiver=0,breathPhase=0,stageIndex=0;
-let arms=[],flinch={a:0,va:0},fx,heartTex,glowTex,glow,hearts=[],sfxGain,nextBeat=0,lastVoice=-100,lastLine='',cursorScreen={x:0,y:0};
+// 만족도(0~100)와 화면용 relax(0~1). calm은 극락 연출 단계(0 없음, 1 유지, 2 여운으로 하강).
+let satisfy=0,relax=0,contact=0,massageIdle=0,calm=0,calmTimer=0,calmIndex=0,lastRough=-100,beatAt=-100,popAt=-100;
+let arms=[],flinch={a:0,va:0},fx,heartTex,sparkTex,glowTex,glow,eyeHearts=[],hearts=[],sfxGain,nextBeat=0,lastVoice=-100,lastLine='',cursorScreen={x:0,y:0},dialog={text:'',shown:0};
 const STAGES=[['평온','평온'],['두근','두근두근'],['달아오름','달아오름'],['한계','한계 직전'],['절정','절정♥']];
+const CALM=[['뭉침','뭉침'],['풀림','풀리는 중'],['시원','시원함'],['노곤','노곤노곤'],['극락','극락♪']];
+const ZONES={chest:{label:'가슴 · 민감♥',kind:'love'},waist:{label:'허리 · 뭉침',kind:'calm'},arm:{label:'어깨·팔 · 뭉침',kind:'calm'}};
+const GOOD=['딱 좋아요♪','시원~','좋아요♪'];
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const smoothstep=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
 
@@ -120,7 +153,9 @@ function buildModel(documentPSD){
   if(faceRecord){const blush=addRecord('blush',faceRecord.layer,blushCanvas(faceRecord),world.getChildIndex(faceRecord.mesh)+1);blush.overlay=true;blush.mesh.alpha=0;}
   // 팔은 어깨를 고정한 채 회전합니다. sign은 손이 위로 올라가는(움찔) 방향입니다.
   arms=[['handwear-l',-1],['handwear-r',1]].map(([name,sign])=>{const r=byName.get(name);if(!r)return null;const l=r.layer;r.arm={px:sign<0?l.left+40:l.right-40,py:l.top+42,sign,a:0,va:0,seed:Math.random()*9};return r.arm;}).filter(Boolean);
-  glow=new PIXI.Sprite(glowTex);glow.anchor.set(.5);glow.alpha=0;glow.eventMode='none';world.addChild(glow);
+  glow=new PIXI.Sprite(glowTex.love);glow.anchor.set(.5);glow.alpha=0;glow.eventMode='none';world.addChild(glow);
+  // 하트 눈: 흥분도가 한계에 가까우면 홍채 위(속눈썹 아래)에 작은 하트가 떠오릅니다.
+  eyeHearts=['l','r'].map(side=>{const iris=byName.get('irides-'+side);if(!iris)return null;const sprite=new PIXI.Sprite(heartTex);sprite.anchor.set(.5,.55);sprite.visible=false;sprite.eventMode='none';world.addChildAt(sprite,world.getChildIndex(iris.mesh)+1);return {sprite,iris};}).filter(Boolean);
   const face=byName.get('face')?.layer;
   anchor={x:face?(face.left+face.right)/2:psd.width/2,y:face?face.bottom-18:psd.height*.4};
   for(const side of ['l','r']){
@@ -148,11 +183,11 @@ function buildModel(documentPSD){
   const top=byName.get('topwear')?.layer;
   chest=top?CONFIG.눌림.가슴중심.map(p=>({cx:top.left+(top.right-top.left)*p.x,cy:top.top+(top.bottom-top.top)*p.y,x:0,y:0,vx:0,vy:0})):[];
   time=0;nextBlink=randomBlink();blinkStart=-100;head={x:0,y:0,vx:0,vy:0};gaze={x:0,y:0};eyeShift={x:0,y:0};pressSpring={x:0,y:0,z:0,vx:0,vy:0,vz:0};
-  arousal=heat=touchLevel=idle=climax=climaxTimer=shiver=breathPhase=stageIndex=0;flinch={a:0,va:0};nextBeat=0;
+  arousal=heat=touchLevel=idle=climax=climaxTimer=shiver=breathPhase=stageIndex=0;satisfy=relax=contact=massageIdle=calm=calmTimer=calmIndex=0;flinch={a:0,va:0};nextBeat=0;
   resize();createLayerControls();updateModel(0);updateMeter(true);app.render();
   const missing=TOP_ORDER.filter(n=>!byName.has(n));
   $('stats').textContent=`${records.filter(r=>!r.overlay).length}개 레이어 · ${psd.width} × ${psd.height}${missing.length?' · 누락: '+missing.join(', '):''}`;
-  window.character={config:CONFIG,app,world,records,byName,masks,chest,arms,get eyeShift(){return {...eyeShift};},get started(){return started;},get press(){return press;},get time(){return time;},get blink(){return blinkValue();},get arousal(){return arousal;},set arousal(v){arousal=clamp(v,0,100);},get hearts(){return hearts.length;},get climax(){return climax;}};
+  window.character={config:CONFIG,app,world,records,byName,masks,chest,arms,get eyeShift(){return {...eyeShift};},get started(){return started;},get press(){return press;},get time(){return time;},get blink(){return blinkValue();},get arousal(){return arousal;},set arousal(v){arousal=clamp(v,0,100);},get satisfy(){return satisfy;},set satisfy(v){satisfy=clamp(v,0,100);},get relax(){return relax;},get hearts(){return hearts.length;},get climax(){return climax;},get calm(){return calm;}};
 }
 function addRecord(name,layer,canvas,index){
   const texture=PIXI.Texture.from(canvas);
@@ -190,23 +225,35 @@ function heartTexture(){
   g.fillStyle='rgba(255,255,255,.8)';g.beginPath();g.ellipse(-17,-18,7,4.5,-.6,0,Math.PI*2);g.fill();
   return PIXI.Texture.from(c);
 }
-function glowTexture(){const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d'),fill=g.createRadialGradient(64,64,0,64,64,64);fill.addColorStop(0,'rgba(255,92,140,.55)');fill.addColorStop(.5,'rgba(255,120,160,.22)');fill.addColorStop(1,'rgba(255,120,160,0)');g.fillStyle=fill;g.fillRect(0,0,128,128);return PIXI.Texture.from(c);}
+function glowTexture(r,g,b){const c=document.createElement('canvas');c.width=c.height=128;const context=c.getContext('2d'),fill=context.createRadialGradient(64,64,0,64,64,64);fill.addColorStop(0,`rgba(${r},${g},${b},.55)`);fill.addColorStop(.5,`rgba(${r},${g},${b},.2)`);fill.addColorStop(1,`rgba(${r},${g},${b},0)`);context.fillStyle=fill;context.fillRect(0,0,128,128);return PIXI.Texture.from(c);}
+function sparkTexture(){
+  const c=document.createElement('canvas');c.width=c.height=112;const g=c.getContext('2d');g.translate(56,56);
+  const halo=g.createRadialGradient(0,0,0,0,0,44);halo.addColorStop(0,'rgba(210,255,240,.6)');halo.addColorStop(1,'rgba(127,220,195,0)');g.fillStyle=halo;g.fillRect(-56,-56,112,112);
+  const star=new Path2D('M0 -42 C4 -12 12 -4 42 0 C12 4 4 12 0 42 C-4 12 -12 4 -42 0 C-12 -4 -4 -12 0 -42 Z'),fill=g.createRadialGradient(0,0,0,0,0,42);
+  fill.addColorStop(0,'#ffffff');fill.addColorStop(.35,'#eafff8');fill.addColorStop(1,'#6fd6b8');g.fillStyle=fill;g.fill(star);return PIXI.Texture.from(c);
+}
 function resize(){
   if(!app||!psd)return;const width=innerWidth,height=innerHeight;app.renderer.resize(width,height);
-  const gap=width<600?100:105,bottom=started?104:160,availableH=Math.max(100,height-gap-bottom);
+  // 넓은 화면은 왼쪽 HUD 자리를, 좁은 화면은 위쪽 HUD 자리를 비우고 아래에 대사창 자리를 둡니다.
+  const hud=started&&!$('hud').hidden,wide=width>=900,left=hud&&wide?268:0,right=hud&&wide?24:0;
+  const gap=hud&&!wide?$('hud').getBoundingClientRect().bottom+14:width<600?100:105,bottom=started?(width<600?118:132):160;
+  const availableH=Math.max(100,height-gap-bottom),availableW=Math.max(100,width-left-right-width*CONFIG.화면.여백*2);
   const crop={left:bounds.left-18,top:bounds.top-24,right:bounds.right+18,bottom:bounds.bottom-CONFIG.화면.하단잘라내기};
-  const scale=Math.min(width*(1-CONFIG.화면.여백*2)/(crop.right-crop.left),availableH/(crop.bottom-crop.top));
-  world.scale.set(scale);world.position.set(width/2-(crop.left+crop.right)/2*scale,gap+availableH/2-(crop.top+crop.bottom)/2*scale);
+  const fitH=availableH/(crop.bottom-crop.top),cropW=crop.right-crop.left;
+  if(availableW/cropW<fitH){const want=Math.max(Math.min(CONFIG.화면.좁은화면최소폭,cropW),availableW/fitH);if(want<cropW){const center=clamp(CONFIG.화면.좁은화면중심X,crop.left+want/2,crop.right-want/2);crop.left=center-want/2;crop.right=center+want/2;}}
+  const scale=Math.min(availableW/(crop.right-crop.left),availableH/(crop.bottom-crop.top));
+  world.scale.set(scale);world.position.set(left+(width-left-right)/2-(crop.left+crop.right)/2*scale,gap+availableH/2-(crop.top+crop.bottom)/2*scale);
   const p=world.toGlobal(new PIXI.Point(crop.left,crop.top)),w=(crop.right-crop.left)*scale,h=(crop.bottom-crop.top)*scale;
   frameMask.clear().beginFill(0xffffff).drawRoundedRect(p.x,p.y,w,h,CONFIG.화면.프레임반경).endFill();world.mask=frameMask;
   Object.assign($('frame').style,{left:p.x+'px',top:p.y+'px',width:w+'px',height:h+'px',borderRadius:CONFIG.화면.프레임반경+'px'});$('frame').hidden=false;
+  Object.assign($('dialog').style,{left:(p.x+w/2)+'px',top:(p.y+h-14)+'px',width:Math.min(640,w-24,width-32)+'px'});
   app.render();
 }
 function randomBlink(){const a=Math.max(.2,CONFIG.깜빡임.최소간격),b=Math.max(a,CONFIG.깜빡임.최대간격);return a+Math.random()*(b-a);}
 function blinkValue(){if(!CONFIG.깜빡임.사용)return 0;const phase=(time-blinkStart)/Math.max(.05,CONFIG.깜빡임.시간);if(phase<0||phase>=1)return 0;return phase<.4?smoothstep(0,.4,phase):1-smoothstep(.4,1,phase);}
 function headPoint(x,y,angle,dx,dy){const c=Math.cos(angle),s=Math.sin(angle);return {x:anchor.x+(x-anchor.x)*c-(y-anchor.y)*s+dx,y:anchor.y+(x-anchor.x)*s+(y-anchor.y)*c+dy};}
 // flinch: 움찔하며 고개가 젖혀지는 스프링. shiver: 절정·한계 단계의 잔떨림.
-function groupTransform(name,breath){const factor=name==='front hair'?1.12:BACK.has(name)?.8:1,jolt=flinch.a*.7+Math.sin(time*43)*shiver*.45;return {angle:(head.x*CONFIG.고개.각도+jolt)*Math.PI/180,dx:head.x*CONFIG.고개.시차*factor,dy:breath*CONFIG.숨쉬기.머리따라가기+head.y*CONFIG.고개.시차*.18*factor-flinch.a*1.6*factor};}
+function groupTransform(name,breath){const factor=name==='front hair'?1.12:BACK.has(name)?.8:1,jolt=flinch.a*.7+Math.sin(time*43)*shiver*.45+relax*CONFIG.반응.나른함;return {angle:(head.x*CONFIG.고개.각도+jolt)*Math.PI/180,dx:head.x*CONFIG.고개.시차*factor,dy:breath*CONFIG.숨쉬기.머리따라가기+head.y*CONFIG.고개.시차*.18*factor-flinch.a*1.6*factor+relax*2*factor};}
 function sampleAlpha(image,x,y){const x0=Math.floor(x),y0=Math.floor(y),fx=x-x0,fy=y-y0;const a=(px,py)=>px<0||py<0||px>=image.width||py>=image.height?0:image.data[(py*image.width+px)*4+3]/255;return lerp(lerp(a(x0,y0),a(x0+1,y0),fx),lerp(a(x0,y0+1),a(x0+1,y0+1),fx),fy);}
 function eyeRig(samples,layer){
   let total=0,cx=0,cy=0;for(const p of samples){total+=p.a;cx+=p.x*p.a;cy+=p.y*p.a;}cx/=Math.max(1,total);cy/=Math.max(1,total);
@@ -230,18 +277,19 @@ function updateModel(dt){
   gaze.x=lerp(gaze.x,pointer.x,eyeSmooth);gaze.y=lerp(gaze.y,pointer.y,eyeSmooth);
   eyeShift=safeEyeShift();
   if(CONFIG.깜빡임.사용&&time>=nextBlink){blinkStart=time;nextBlink=time+randomBlink();}
-  // 흥분할수록 숨이 빠르고 깊어집니다. 주기가 바뀌어도 튀지 않도록 위상을 누적합니다.
-  breathPhase+=dt*Math.PI*2/Math.max(.5,CONFIG.숨쉬기.주기*(1-.55*heat));const phase=breathPhase;
-  const blink=blinkValue(),close=clamp(blink+CONFIG.반응.눈감기*(.6*heat+.4*touchLevel)+Math.max(0,flinch.a)*.06,0,1),open=1-close*.97;
+  // 흥분할수록 숨이 빠르고 깊어지고, 만족할수록 느려집니다. 주기가 바뀌어도 튀지 않도록 위상을 누적합니다.
+  breathPhase+=dt*Math.PI*2/Math.max(.5,CONFIG.숨쉬기.주기*(1-.55*heat)*(1+.45*relax*(1-heat)));const phase=breathPhase;
+  const sleepy=CONFIG.반응.눈감기*.8*relax*(1-.5*heat)+(calm===1?.2:0);
+  const blink=blinkValue(),close=clamp(blink+CONFIG.반응.눈감기*(.6*heat+.4*touchLevel)+sleepy+Math.max(0,flinch.a)*.06,0,1),open=1-close*.97;
   const breathScale=1+(Math.sin(phase)+.12*Math.sin(phase*2))*CONFIG.숨쉬기.세기*(1+1.4*heat)+flinch.a*.0016;
   const breath=-(bounds.bottom-anchor.y)*(breathScale-1),pant=CONFIG.반응.입벌림*heat*(.55+.45*Math.sin(phase));
   const steps=Math.max(1,Math.ceil(dt/(1/120))),step=dt/steps;
   for(let s=0;s<steps;s++){
     const speed=Math.max(1,CONFIG.고개.반응속도);
     spring(head,'x',pointer.x,speed*speed,2*speed,step);spring(head,'y',pointer.y,speed*speed,2*speed,step);
-    spring(pressSpring,'x',press?.active?press.dx*press.gain:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
-    spring(pressSpring,'y',press?.active?press.dy*press.gain:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
-    spring(pressSpring,'z',press?.active?press.gain:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
+    spring(pressSpring,'x',press?.active?press.dx*press.drive:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
+    spring(pressSpring,'y',press?.active?press.dy*press.drive:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
+    spring(pressSpring,'z',press?.active&&press.zone==='chest'?press.gain:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
     spring(flinch,'a',0,140,9,step);
     for(const arm of arms){spring(arm,'a',0,170,10,step);arm.a=clamp(arm.a,-CONFIG.반응.팔최대각,CONFIG.반응.팔최대각);}
     for(const r of records)if(HAIR.has(r.name)){
@@ -249,7 +297,7 @@ function updateModel(dt){
       spring(r.hair,'x',head.x,CONFIG.머리카락.스프링*stiffness,CONFIG.머리카락.감쇠,step);
       spring(r.hair,'y',head.y,CONFIG.머리카락.스프링*stiffness,CONFIG.머리카락.감쇠,step);
     }
-    for(const c of chest){const influence=press?Math.exp(-((c.cx-press.x)**2+(c.cy-press.y)**2)/(CONFIG.눌림.가슴반경**2*2))*press.gain:0;
+    for(const c of chest){const influence=press?.record?.name==='topwear'?Math.exp(-((c.cx-press.x)**2+(c.cy-press.y)**2)/(CONFIG.눌림.가슴반경**2*2))*press.gain:0;
       spring(c,'x',pressSpring.x*influence*CONFIG.눌림.가슴관성,CONFIG.눌림.가슴스프링,CONFIG.눌림.가슴감쇠,step);
       spring(c,'y',(pressSpring.y+pressSpring.z*CONFIG.눌림.세기*.45)*influence*CONFIG.눌림.가슴관성,CONFIG.눌림.가슴스프링,CONFIG.눌림.가슴감쇠,step);
       const limit=CONFIG.눌림.최대출렁;c.x=clamp(c.x,-limit,limit);c.y=clamp(c.y,-limit,limit);
@@ -259,7 +307,9 @@ function updateModel(dt){
     for(let i=0;i<base.length;i+=2){let x=base[i],y=base[i+1];
       if(r.arm){
         // 어깨(피벗) 근처는 고정하고 손 쪽으로 갈수록 회전이 커집니다. 잔떨림은 shiver에 비례합니다.
-        const arm=r.arm,w=smoothstep(40,260,Math.hypot(x-arm.px,y-arm.py)),angle=(arm.a+arm.sign*Math.sin(time*37+arm.seed)*shiver*.6)*Math.PI/180*w;
+        const arm=r.arm;
+        if(press?.record===r){const rx=x-press.x,ry=y-press.y,k=Math.exp(-(rx*rx+ry*ry)/3600)*smoothstep(50,150,Math.hypot(x-arm.px,y-arm.py));x+=pressSpring.x*k;y+=pressSpring.y*k;}
+        const w=smoothstep(40,260,Math.hypot(x-arm.px,y-arm.py)),angle=(arm.a+arm.sign*Math.sin(time*37+arm.seed)*shiver*.6)*Math.PI/180*w;
         const c=Math.cos(angle),s=Math.sin(angle),ux=x-arm.px,uy=y-arm.py;x=arm.px+ux*c-uy*s;y=arm.py+ux*s+uy*c;
       }
       if(name==='mouth'){const middle=(layer.top+layer.bottom)/2;y=middle+(y-middle)*(1+pant);}
@@ -269,7 +319,7 @@ function updateModel(dt){
       }
       if(name.startsWith('irides')){x+=eyeShift.x;y+=eyeShift.y;}
       if(r.eyeRig){const lash=name.startsWith('eyelash'),factor=lash?1-close*.35:open;const p=eyePoint(x,y,r.eyeRig,factor);const shift=lash?-close*factor*r.lashNormal:0;x=p.x+r.eyeRig.nx*shift;y=p.y+r.eyeRig.ny*shift;}
-      if(name==='topwear'&&press){
+      if(name==='topwear'&&press?.record===r){
         const radius=Math.max(15,CONFIG.눌림.반경),rx=x-press.x,ry=y-press.y,influence=Math.exp(-(rx*rx+ry*ry)/(radius*radius));
         const u=(base[i]-layer.left)/(layer.right-layer.left),v=(base[i+1]-layer.top)/(layer.bottom-layer.top);
         const seam=Math.sin(Math.PI*clamp(u,0,1))**.65*smoothstep(0,.13,v)*(1-smoothstep(.5,.62,v));
@@ -287,134 +337,208 @@ function updateModel(dt){
     buffer.update();r.mesh.visible=r.enabled;
     if(name==='blush')r.mesh.alpha=clamp(CONFIG.반응.홍조*(heat*.9+touchLevel*.18),0,1);
   }
-  if(glow){const on=press?.active?touchLevel:0;glow.visible=on>.01;glow.alpha=on*(.75+.25*Math.sin(time*9));if(press)glow.position.set(press.cx,press.cy);glow.scale.set((CONFIG.눌림.반경*1.5/64)*(1+.08*Math.sin(time*9)));}
+  if(glow&&press){const chestZone=press.zone==='chest',on=contact*(chestZone?Math.max(.35,press.gain):.55);glow.texture=chestZone?glowTex.love:glowTex.calm;glow.visible=on>.01;glow.alpha=on*(.75+.25*Math.sin(time*9));glow.position.set(press.cx,press.cy);glow.scale.set((CONFIG.눌림.반경*(chestZone?1.5:1)/64)*(1+.08*Math.sin(time*9)));}
   for(const {sprite,white,rig} of masks){
     const layer=white.layer,tr=groupTransform(white.name,breath);
     const point=(x,y)=>{const p=eyePoint(x,y,rig,open);return headPoint(p.x,p.y,tr.angle,tr.dx,tr.dy);};
     const p=point(layer.left,layer.top),px=point(layer.left+1,layer.top),py=point(layer.left,layer.top+1);
     sprite.pivot.set(0);sprite.transform.setFromMatrix(new PIXI.Matrix(px.x-p.x,px.y-p.y,py.x-p.x,py.y-p.y,p.x,p.y));
   }
+  const love=CONFIG.반응.하트눈*smoothstep(.62,.88,heat),beat=Math.max(0,1-(time-beatAt)/.25);
+  for(const {sprite,iris} of eyeHearts){sprite.visible=love>.01&&iris.enabled;if(!sprite.visible)continue;
+    const l=iris.layer,tr=groupTransform(iris.name,breath),e=eyePoint((l.left+l.right)/2+eyeShift.x,(l.top+l.bottom)/2+eyeShift.y,iris.eyeRig,open),q=headPoint(e.x,e.y,tr.angle,tr.dx,tr.dy);
+    sprite.position.set(q.x,q.y);sprite.rotation=tr.angle;sprite.alpha=love;sprite.scale.set((l.right-l.left)*.46/88*(1+.15*beat));}
 }
 
 function modelPoint(event){const rect=app.view.getBoundingClientRect();return world.toLocal(new PIXI.Point((event.clientX-rect.left)*app.screen.width/rect.width,(event.clientY-rect.top)*app.screen.height/rect.height));}
 function screenPoint(event){const rect=app.view.getBoundingClientRect();return {x:(event.clientX-rect.left)*app.screen.width/rect.width,y:(event.clientY-rect.top)*app.screen.height/rect.height};}
 function movePointer(event){if(!psd)return;const p=modelPoint(event),s=screenPoint(event);pointer.x=clamp((p.x-anchor.x)/(psd.width*.4),-1,1);pointer.y=clamp((p.y-anchor.y)/(psd.height*.4),-1,1);
-  if(press?.active&&event.pointerId===press.id){press.cx=p.x;press.cy=p.y;if(press.gain>.1)press.rubScreen+=Math.hypot(s.x-cursorScreen.x,s.y-cursorScreen.y);}
-  else if(started&&event.pointerType==='mouse'){const hit=hitTopwear(p,true);app.view.style.cursor=hit&&touchGain(hit.x,hit.y)>.08?'grab':'default';}
-  cursorScreen=s;}
-function topwearAlpha(x,y){const r=byName.get('topwear');if(!r)return false;const px=Math.floor(x-r.layer.left),py=Math.floor(y-r.layer.top);return px>=0&&py>=0&&px<r.pixels.width&&py<r.pixels.height&&r.pixels.data[(py*r.pixels.width+px)*4+3]>30;}
+  if(press?.active&&event.pointerId===press.id){press.cx=p.x;press.cy=p.y;press.rubScreen+=Math.hypot(s.x-cursorScreen.x,s.y-cursorScreen.y);cursorScreen=s;return;}
+  cursorScreen=s;if(started&&event.pointerType==='mouse'){const hit=hitZone(p);app.view.style.cursor=hit?CURSOR.hover:'default';showZone(hit?.zone);}}
+function showZone(zone){const tag=$('zoneTag');if(!zone){tag.hidden=true;return;}const info=ZONES[zone];tag.hidden=false;tag.textContent=info.label;tag.className=info.kind;tag.style.transform=`translate(${cursorScreen.x+18}px,${cursorScreen.y+18}px)`;}
+function layerAlpha(r,x,y){if(!r)return false;const px=Math.floor(x-r.layer.left),py=Math.floor(y-r.layer.top);return px>=0&&py>=0&&px<r.pixels.width&&py<r.pixels.height&&r.pixels.data[(py*r.pixels.width+px)*4+3]>30;}
 // 실제로 변형된 mesh의 삼각형과 UV로 알파 히트테스트: 투명한 부분은 눌리지 않습니다.
-function hitTopwear(p,details=false){const r=byName.get('topwear');if(!r?.enabled||!frameMask.containsPoint(world.toGlobal(p)))return false;const vertices=r.buffer.data,uv=r.mesh.geometry.getBuffer('aTextureCoord').data,indices=r.mesh.geometry.getIndex().data;
+function hitTopwear(p,details=false){return hitMesh(byName.get('topwear'),p,details);}
+function hitMesh(r,p,details=false){if(!r?.enabled||!frameMask.containsPoint(world.toGlobal(p)))return false;const vertices=r.buffer.data,uv=r.mesh.geometry.getBuffer('aTextureCoord').data,indices=r.mesh.geometry.getIndex().data;
   for(let n=0;n<indices.length;n+=3){const a=indices[n]*2,b=indices[n+1]*2,c=indices[n+2]*2;const ax=vertices[a],ay=vertices[a+1],bx=vertices[b],by=vertices[b+1],cx=vertices[c],cy=vertices[c+1];const det=(by-cy)*(ax-cx)+(cx-bx)*(ay-cy);if(Math.abs(det)<1e-7)continue;const wa=((by-cy)*(p.x-cx)+(cx-bx)*(p.y-cy))/det,wb=((cy-ay)*(p.x-cx)+(ax-cx)*(p.y-cy))/det,wc=1-wa-wb;if(wa<0||wb<0||wc<0)continue;const u=uv[a]*wa+uv[b]*wb+uv[c]*wc,v=uv[a+1]*wa+uv[b+1]*wb+uv[c+1]*wc;const px=clamp(Math.floor(u*r.pixels.width),0,r.pixels.width-1),py=clamp(Math.floor(v*r.pixels.height),0,r.pixels.height-1);if(r.pixels.data[(py*r.pixels.width+px)*4+3]<=30)return false;return details?{x:r.layer.left+u*r.pixels.width,y:r.layer.top+v*r.pixels.height}:true;}
   return false;
 }
+// 부위 판정: 위에 그려지는 옷(가슴·허리)을 먼저, 그 아래 팔(어깨 포함)을 확인합니다.
+function hitZone(p){const top=byName.get('topwear'),hit=hitMesh(top,p,true);if(hit){const gain=touchGain(hit.x,hit.y);return {record:top,x:hit.x,y:hit.y,gain,zone:gain>.08?'chest':'waist'};}
+  for(const r of records)if(r.arm){const a=hitMesh(r,p,true);if(a)return {record:r,x:a.x,y:a.y,gain:0,zone:'arm'};}return null;}
 function touchGain(x,y){const top=byName.get('topwear')?.layer;if(!top)return 0;const v=(y-top.top)/(top.bottom-top.top),radius=CONFIG.눌림.가슴반경;const weights=chest.map(c=>Math.max(0,1-((x-c.cx)/(radius*1.35))**2-((y-c.cy)/radius)**2)**2);return Math.max(0,...weights)*(1-smoothstep(.5,.62,v));}
 function chestImpulse(x,y,strength){const gain=touchGain(x,y),weights=chest.map(c=>Math.exp(-((c.cx-x)**2+(c.cy-y)**2)/(CONFIG.눌림.가슴반경**2))*gain);const largest=Math.max(0,...weights);chest.forEach((c,i)=>{const weight=weights[i]+(largest>.3?.16*largest:0);c.vy=clamp(c.vy+strength*weight,-180,180);c.vx=clamp(c.vx+strength*.12*weight*(c.cx<x?-1:1),-90,90);});}
 function release(event){if(press?.active&&event.pointerId===press.id){
   if(event.type==='pointerup'&&time-press.start>.12)chestImpulse(press.x,press.y,-CONFIG.눌림.클릭탄성*.38);
-  press.active=false;try{app.view.releasePointerCapture(event.pointerId);}catch{}app.view.style.cursor='default';
+  press.active=false;try{app.view.releasePointerCapture(event.pointerId);}catch{}app.view.style.cursor=event.pointerType==='mouse'?CURSOR.hover:'default';
 }if(event.pointerType==='touch')pointer={x:0,y:0};}
+function emojiCursor(rotate,size,fallback){try{const c=document.createElement('canvas');c.width=c.height=44;const g=c.getContext('2d');g.translate(22,22);g.rotate(rotate);g.font=size+'px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText('🖐️',0,2);return `url(${c.toDataURL()}) 22 22, ${fallback}`;}catch{return fallback;}}
+const CURSOR={hover:emojiCursor(0,30,'grab'),press:emojiCursor(.35,26,'grabbing')};
 
-// ━━━ 마사지 반응: 손의 미끄러짐, 흥분도, 팔 움찔, 하트, 대사, 심장 소리 ━━━
+// ━━━ 마사지 반응: 부위 판정, 손놀림, 흥분도·만족도, 팔 움찔, 파티클, 대사창, 소리 ━━━
 function stageKey(){return STAGES[stageIndex][0];}
+function calmKey(){return CALM[calmIndex][0];}
+// 가슴은 흥분도 대사, 다른 부위는 만족도 대사. 흥분도가 높으면 다른 부위에서도 가끔 흥분 대사가 나옵니다.
+function voiceKey(zone){return zone==='chest'||(heat>.6&&Math.random()<heat*.6)?stageKey():calmKey();}
 function twitch(power){const p=power*CONFIG.반응.팔움찔;for(const arm of arms)arm.va+=arm.sign*p*(.55+Math.random()*.9);flinch.va+=p*.32;}
-function onTouchStart(gain){
-  if(gain<.08)return;
-  twitch((26+arousal*.3)*gain);
-  if(climax===0)arousal=Math.min(100,arousal+CONFIG.흥분.터치*gain*CONFIG.흥분.배율);
-  emitHearts(cursorScreen.x,cursorScreen.y,2+gain*3);
-  if(Math.random()<.8)say(stageKey());
+// 손놀림 품질: 적정 속도면 1, 가만히 누르면 지압(0.5), 거칠기한계를 넘으면 0 아래(아픔).
+function strokeQuality(speed){const [low,high]=CONFIG.만족.적정속도,rough=CONFIG.만족.거칠기한계;if(speed<40)return .5;if(speed<low)return .5+.5*(speed-40)/Math.max(1,low-40);if(speed<=high)return 1;if(speed<=rough)return 1-(speed-high)/Math.max(1,rough-high);return -Math.min(1,(speed-rough)/400);}
+function onTouchStart(){
+  if(press.zone==='chest'){
+    twitch((26+arousal*.3)*press.gain);
+    if(climax===0)arousal=Math.min(100,arousal+CONFIG.흥분.터치*press.gain*CONFIG.흥분.배율);
+    emitHearts(cursorScreen.x,cursorScreen.y,2+press.gain*3);popup('민감♥','love');
+  }else{emitSparks(cursorScreen.x,cursorScreen.y,2);if(heat>.5)twitch(10+20*heat);}
+  if(Math.random()<.8)say(voiceKey(press.zone));
 }
 function updatePlay(dt){
-  const touching=!!press?.active&&press.gain>.05;
-  if(press?.active){
-    // 손 아래의 접촉점은 일정 거리까지 옷을 끌고, 그 이상은 표면 위를 미끄러집니다(문지르기).
-    const stick=Math.max(.05,CONFIG.눌림.드래그),reach=CONFIG.눌림.최대끌림/stick,slip=1-Math.exp(-CONFIG.눌림.미끄러짐*dt);
+  const active=!!press?.active;
+  if(active){
+    // 접촉점은 손에 달라붙어 옷·살을 끌고, 손이 최대끌림보다 멀어질 때만 손을 따라 이동합니다.
+    const r=press.record,stick=Math.max(.05,CONFIG.눌림.드래그),reach=CONFIG.눌림.최대끌림/stick,slip=1-Math.exp(-CONFIG.눌림.미끄러짐*dt);
     let nx=press.x+(press.cx-press.x)*slip,ny=press.y+(press.cy-press.y)*slip;const far=Math.hypot(press.cx-nx,press.cy-ny);
     if(far>reach){const k=(far-reach)/far;nx+=(press.cx-nx)*k;ny+=(press.cy-ny)*k;}
-    if(topwearAlpha(nx,ny)){press.x=nx;press.y=ny;}
+    if(layerAlpha(r,nx,ny)){press.x=nx;press.y=ny;}
     const ox=(press.cx-press.x)*stick,oy=(press.cy-press.y)*stick,len=Math.hypot(ox,oy),cap=len>CONFIG.눌림.최대끌림?CONFIG.눌림.최대끌림/len:1;
-    press.dx=ox*cap;press.dy=oy*cap;press.gain=lerp(press.gain,touchGain(press.x,press.y),1-Math.exp(-10*dt));
+    press.dx=ox*cap;press.dy=oy*cap;
+    if(r.name==='topwear'){press.gain=lerp(press.gain,touchGain(press.x,press.y),1-Math.exp(-10*dt));press.zone=press.gain>.08?'chest':'waist';}
+    // 허리는 변형하지 않습니다(호흡만). 팔은 팔주무름 비율만큼 살이 따라옵니다.
+    press.drive=press.zone==='chest'?press.gain:press.zone==='arm'?CONFIG.부위.팔주무름:0;
     const blend=1-Math.exp(-12*dt);press.vx=lerp(press.vx,(press.cx-press.lx)/Math.max(dt,1e-3),blend);press.vy=lerp(press.vy,(press.cy-press.ly)/Math.max(dt,1e-3),blend);press.lx=press.cx;press.ly=press.cy;
-    // 문지르는 속도가 가슴 스프링을 끌고 다녀 출렁임이 이어집니다.
-    for(const c of chest){const w=Math.exp(-((c.cx-press.x)**2+(c.cy-press.y)**2)/(CONFIG.눌림.가슴반경**2*1.6))*press.gain;c.vx+=press.vx*CONFIG.눌림.문지름출렁*w*dt*6;c.vy+=press.vy*CONFIG.눌림.문지름출렁*w*dt*6;}
+    // 손의 속도가 가슴 스프링을 끌고 다녀, 잡고 흔들면 출렁임이 이어집니다.
+    if(press.zone==='chest')for(const c of chest){const w=Math.exp(-((c.cx-press.x)**2+(c.cy-press.y)**2)/(CONFIG.눌림.가슴반경**2*1.6))*press.gain;c.vx+=press.vx*CONFIG.눌림.문지름출렁*w*dt*6;c.vy+=press.vy*CONFIG.눌림.문지름출렁*w*dt*6;}
   }
-  const speed=press?.active?Math.hypot(press.vx,press.vy)*world.scale.x:0,rub=Math.min(1,speed/700);
-  touchLevel=lerp(touchLevel,touching?press.gain:0,1-Math.exp(-6*dt));
-  if(touching&&climax===0){idle=0;arousal=Math.min(100,arousal+(CONFIG.흥분.누르기+Math.min(speed,1500)/1000*CONFIG.흥분.문지르기)*press.gain*CONFIG.흥분.배율*dt);}
-  else idle+=dt;
+  const speed=active?Math.hypot(press.vx,press.vy)*world.scale.x:0,rub=Math.min(1,speed/700),quality=active?strokeQuality(speed):0,chestTouch=active&&press.zone==='chest';
+  contact=lerp(contact,active?1:0,1-Math.exp(-8*dt));
+  touchLevel=lerp(touchLevel,chestTouch?press.gain:0,1-Math.exp(-6*dt));
+  // 흥분도: 가슴이 주로 올리고, 이미 달아오른 상태에서는 다른 부위도 조금 올립니다.
+  if(active&&climax===0){const rate=chestTouch?(CONFIG.흥분.누르기+Math.min(speed,1500)/1000*CONFIG.흥분.문지르기)*press.gain:CONFIG.흥분.다른부위*smoothstep(.35,1,heat)*(.4+rub);arousal=Math.min(100,arousal+rate*CONFIG.흥분.배율*dt);}
+  idle=chestTouch?0:idle+dt;
   if(climax===0&&idle>CONFIG.흥분.감소대기)arousal=Math.max(0,arousal-CONFIG.흥분.감소*dt);
   if(climax===0&&arousal>=100)startClimax();
   if(climax===1&&(climaxTimer-=dt)<=0)climax=2;
   if(climax===2){arousal=Math.max(CONFIG.흥분.여운,arousal-30*dt);if(arousal<=CONFIG.흥분.여운)climax=0;}
-  heat=lerp(heat,arousal/100,1-Math.exp(-3*dt));
-  shiver=Math.max(shiver*Math.exp(-1.4*dt),climax===1?1.2:touching&&arousal>70?(arousal-70)/30*.55:0);
-  // 단계가 오르면 바로 한마디, 문지르는 동안에는 가끔 대사.
+  // 만족도: 적정 속도의 주무르기·지압이 올리고, 너무 거칠면 내려갑니다.
+  if(active&&calm===0){
+    const q=chestTouch?Math.max(0,quality):quality,zoneRate=chestTouch?CONFIG.만족.가슴비율:1;
+    satisfy=clamp(satisfy+CONFIG.만족.상승*CONFIG.만족.배율*zoneRate*q*(q<0?1.6:1)*dt,0,100);
+    if(!chestTouch&&q<0&&time-lastRough>2.4){lastRough=time;popup('너무 세요!','rough');say('아픔',true);twitch(22);}
+    if(!chestTouch&&q>=.95){if((press.goodTime+=dt)>1.6){press.goodTime=0;popup(GOOD[Math.floor(Math.random()*GOOD.length)],'calm');}}else press.goodTime=0;
+  }
+  massageIdle=active?0:massageIdle+dt;
+  if(calm===0&&massageIdle>CONFIG.만족.감소대기)satisfy=Math.max(0,satisfy-CONFIG.만족.감소*dt);
+  if(calm===0&&satisfy>=100)startBliss();
+  if(calm===1&&(calmTimer-=dt)<=0)calm=2;
+  if(calm===2){satisfy=Math.max(CONFIG.만족.여운,satisfy-20*dt);if(satisfy<=CONFIG.만족.여운)calm=0;}
+  heat=lerp(heat,arousal/100,1-Math.exp(-3*dt));relax=lerp(relax,satisfy/100,1-Math.exp(-2*dt));
+  shiver=Math.max(shiver*Math.exp(-1.4*dt),climax===1?1.2:chestTouch&&arousal>70?(arousal-70)/30*.55:0);
+  // 단계가 오르면 바로 한마디. 만지는 동안에는 가끔 대사.
   const next=climax===1?4:arousal>=75?3:arousal>=50?2:arousal>=25?1:0;
   if(next>stageIndex&&next<4){stageIndex=next;say(stageKey(),true);}else stageIndex=next;
-  if(touching&&time-lastVoice>3.4&&Math.random()<dt*.7)say(stageKey());
-  // 문지르는 동안 무작위로 팔이 움찔합니다. 흥분할수록 자주.
-  if(touching&&Math.random()<dt*CONFIG.반응.움찔빈도*(.5+2.4*heat)*(.3+rub)*press.gain)twitch(12+22*heat);
+  const calmNext=calm===1?4:satisfy>=75?3:satisfy>=50?2:satisfy>=25?1:0;
+  if(calmNext>calmIndex&&calmNext<4){calmIndex=calmNext;chime(calmIndex);if(!chestTouch)say(calmKey(),true);}else calmIndex=calmNext;
+  if(active&&time-lastVoice>3.6&&Math.random()<dt*.6)say(voiceKey(press.zone));
+  // 가슴을 만지는 동안 무작위로 팔이 움찔합니다. 흥분할수록 자주.
+  if(chestTouch&&Math.random()<dt*CONFIG.반응.움찔빈도*(.5+2.4*heat)*(.3+rub)*press.gain)twitch(12+22*heat);
   if(climax===1&&Math.random()<dt*5)twitch(18);
-  // 하트: 문지른 거리, 누르고 있는 시간, 높은 흥분도에서 저절로.
-  if(touching){const step=34/Math.max(.1,CONFIG.하트.양);while(press.rubScreen>step){press.rubScreen-=step;emitHearts(cursorScreen.x,cursorScreen.y,1,{spread:26});}
-    if((press.holdHeart+=dt)>.42){press.holdHeart=0;emitHearts(cursorScreen.x,cursorScreen.y,1,{spread:30});}}
+  // 파티클: 가슴은 하트, 다른 부위는 반짝이. 움직인 거리와 누른 시간에 비례합니다.
+  if(active){const emit=()=>chestTouch?emitHearts(cursorScreen.x,cursorScreen.y,1,{spread:26}):quality>0&&emitSparks(cursorScreen.x,cursorScreen.y,1,{spread:26});
+    const step=34/Math.max(.1,CONFIG.하트.양);while(press.rubScreen>step){press.rubScreen-=step;emit();}
+    if((press.holdFx+=dt)>.42){press.holdFx=0;emit();}}
   if(heat>.5&&chest.length&&Math.random()<dt*(heat-.5)*6*CONFIG.하트.양){const c=chest[Math.floor(Math.random()*chest.length)],p=world.toGlobal(new PIXI.Point(c.cx+(Math.random()-.5)*90,c.cy+(Math.random()-.5)*60));emitHeart(p.x,p.y,{size:.75,speed:40+Math.random()*50});}
+  if(relax>.55&&Math.random()<dt*(relax-.55)*4*CONFIG.하트.양){const p=world.toGlobal(new PIXI.Point(anchor.x+(Math.random()-.5)*260,anchor.y-140+(Math.random()-.5)*90));emitSpark(p.x,p.y,{size:.7,speed:25+Math.random()*30});}
   app.stage.position.set(Math.sin(time*53)*shiver*2.2,Math.cos(time*47)*shiver*1.6);
-  heartbeat();updateMeter();
+  heartbeat();updateStroke(active,speed,quality);updateDialog(dt);updateMeter();
 }
+function flash(background,peak){if(reducedMotion)return;const el=$('flash');el.style.background=background;el.animate([{opacity:0},{opacity:peak,offset:.08},{opacity:0}],{duration:1500,easing:'ease-out'});}
 function startClimax(){
   climax=1;climaxTimer=CONFIG.흥분.절정유지;arousal=100;stageIndex=4;shiver=1.2;twitch(60);
   for(const c of chest){c.vy+=(Math.random()<.5?-1:1)*150;c.vx+=(Math.random()-.5)*80;}
   const mid=chest.length?chest.reduce((m,c)=>({x:m.x+c.cx/chest.length,y:m.y+c.cy/chest.length}),{x:0,y:0}):anchor,p=world.toGlobal(new PIXI.Point(mid.x,mid.y));
   for(let i=0;i<36;i++)emitHeart(p.x,p.y,{angle:Math.random()*Math.PI*2,speed:170+Math.random()*190,size:1.1+Math.random()*.5,life:1.4+Math.random()*.9,spread:60});
-  if(!reducedMotion)$('flash').animate([{opacity:0},{opacity:.5,offset:.08},{opacity:0}],{duration:1500,easing:'ease-out'});
-  say('절정',true);
+  flash('radial-gradient(circle at 50% 55%,#fff6fa 0%,#ffb3cf 45%,#ff5c96 100%)',.5);say('절정',true);
+}
+function startBliss(){
+  calm=1;calmTimer=CONFIG.만족.극락유지;satisfy=100;calmIndex=4;chime(5);
+  const p=world.toGlobal(new PIXI.Point(anchor.x,anchor.y+60));
+  for(let i=0;i<30;i++)emitSpark(p.x,p.y,{angle:Math.random()*Math.PI*2,speed:110+Math.random()*160,size:1+Math.random()*.6,life:1.5+Math.random()*.9,spread:140});
+  flash('radial-gradient(circle at 50% 50%,#f4fffb 0%,#bff0e0 45%,#4fc9a6 100%)',.32);say('극락',true);
 }
 function emitHearts(x,y,count,options){const n=count*CONFIG.하트.양;for(let i=0;i<Math.floor(n)+(Math.random()<n%1?1:0);i++)emitHeart(x,y,options);}
-function emitHeart(x,y,o={}){
-  if(!fx||hearts.length>=CONFIG.하트.최대)return;const sprite=new PIXI.Sprite(heartTex);sprite.anchor.set(.5);sprite.tint=Math.random()<.3?0xffd6e6:0xffffff;fx.addChild(sprite);
+function emitSparks(x,y,count,options){const n=count*CONFIG.하트.양;for(let i=0;i<Math.floor(n)+(Math.random()<n%1?1:0);i++)emitSpark(x,y,options);}
+function emitHeart(x,y,o={}){emitParticle(heartTex,Math.random()<.3?0xffd6e6:0xffffff,x,y,o);}
+function emitSpark(x,y,o={}){emitParticle(sparkTex,Math.random()<.35?0xfff0c8:0xffffff,x,y,{...o,spin:true,size:(o.size??1)*.85});}
+function emitParticle(texture,tint,x,y,o){
+  if(!fx||hearts.length>=CONFIG.하트.최대)return;const sprite=new PIXI.Sprite(texture);sprite.anchor.set(.5);sprite.tint=tint;fx.addChild(sprite);
   const angle=o.angle??-Math.PI/2+(Math.random()-.5)*1.2,speed=o.speed??70+Math.random()*90,spread=o.spread??18;
-  hearts.push({sprite,x:x+(Math.random()-.5)*spread,y:y+(Math.random()-.5)*spread,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,life:0,max:o.life??1.1+Math.random()*.9,size:(o.size??1)*(.2+Math.random()*.18)*(app.screen.width<600?.8:1),rotation:(Math.random()-.5)*.5,phase:Math.random()*6.3});
+  hearts.push({sprite,x:x+(Math.random()-.5)*spread,y:y+(Math.random()-.5)*spread,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,life:0,max:o.life??1.1+Math.random()*.9,size:(o.size??1)*(.2+Math.random()*.18)*(app.screen.width<600?.8:1),rotation:(Math.random()-.5)*.5,phase:Math.random()*6.3,spin:o.spin?(Math.random()<.5?-1:1)*(1.5+Math.random()*2):0});
 }
 function updateHearts(dt){
   for(let i=hearts.length-1;i>=0;i--){const h=hearts[i];h.life+=dt;const t=h.life/h.max;
     if(t>=1){h.sprite.destroy();hearts.splice(i,1);continue;}
     h.vx*=Math.exp(-1.6*dt);h.vy=h.vy*Math.exp(-1.1*dt)-36*dt;h.x+=h.vx*dt+Math.sin(h.life*5+h.phase)*24*dt;h.y+=h.vy*dt;
     const u=Math.min(1,t/.14),pop=1+2.7*(u-1)**3+1.7*(u-1)**2;
-    h.sprite.position.set(h.x,h.y);h.sprite.scale.set(h.size*pop*(1+.07*Math.sin(h.life*12)));h.sprite.rotation=h.rotation+Math.sin(h.life*3+h.phase)*.2;h.sprite.alpha=t<.68?1:1-(t-.68)/.32;}
+    h.sprite.position.set(h.x,h.y);h.sprite.scale.set(h.size*pop*(1+.07*Math.sin(h.life*12)));h.sprite.rotation=h.rotation+(h.spin?h.spin*h.life:Math.sin(h.life*3+h.phase)*.2);h.sprite.alpha=t<.68?1:1-(t-.68)/.32;}
 }
+// 손 옆에 잠깐 떠오르는 피드백 문구.
+function popup(text,kind){
+  if(time-popAt<.35)return;popAt=time;const el=document.createElement('div');el.className='pop '+kind;el.textContent=text;el.style.left=cursorScreen.x+'px';el.style.top=(cursorScreen.y-20)+'px';document.body.append(el);
+  el.animate([{opacity:0,transform:'translateY(6px) scale(.8)'},{opacity:1,transform:'translateY(-6px) scale(1.08)',offset:.18},{opacity:1,transform:'translateY(-18px) scale(1)',offset:.7},{opacity:0,transform:'translateY(-32px) scale(1)'}],{duration:1000,easing:'ease-out'}).onfinish=()=>el.remove();
+}
+// 대사창: 이름표 + 한 글자씩 나오는 텍스트. 5초 동안 새 대사가 없으면 흐려집니다.
 function say(key,force){
-  const lines=CONFIG.대사[key];if(!lines?.length||(!force&&time-lastVoice<CONFIG.대사.간격))return;
+  const lines=CONFIG.대사[key];if(!Array.isArray(lines)||!lines.length||(!force&&time-lastVoice<CONFIG.대사.간격))return;
   let line=lines[Math.floor(Math.random()*lines.length)];if(lines.length>1&&line===lastLine)line=lines[(lines.indexOf(line)+1)%lines.length];
-  lastLine=line;lastVoice=time;const el=$('voice');el.textContent=line;
-  const p=world.toGlobal(new PIXI.Point(bounds.right-430,bounds.top+60)),w=el.offsetWidth,h=el.offsetHeight;
-  el.style.left=clamp(p.x,12,app.screen.width-w-12)+'px';el.style.top=Math.max(app.screen.width<600?78:92,p.y-h)+'px';
-  for(const a of el.getAnimations())a.cancel();
-  el.animate([{opacity:0,transform:'translateY(8px) scale(.82)'},{opacity:1,transform:'translateY(0) scale(1.05)',offset:.1},{opacity:1,transform:'scale(1)',offset:.18},{opacity:1,transform:'scale(1)',offset:.82},{opacity:0,transform:'translateY(-10px) scale(1)'}],{duration:key==='절정'?3000:2300,easing:'ease-out'});
+  lastLine=line;lastVoice=time;dialog={text:line,shown:0};$('dialogText').textContent='';
 }
-let meterShown=-1,heatShown=-1,stageShown=-1;
+function updateDialog(dt){
+  if(dialog.shown<dialog.text.length){dialog.shown=Math.min(dialog.text.length,dialog.shown+dt*CONFIG.대사.글자속도);$('dialogText').textContent=dialog.text.slice(0,Math.floor(dialog.shown));}
+  $('dialog').classList.toggle('idle',time-lastVoice>5);
+}
+let shown={};
 function updateMeter(force){
-  const value=Math.round(arousal);if(force||value!==meterShown||stageIndex!==stageShown){meterShown=value;stageShown=stageIndex;$('arousalFill').style.width=value+'%';$('arousalValue').value=value+'%';$('stageLabel').textContent=STAGES[stageIndex][1];$('meter').setAttribute('aria-valuenow',value);$('meter').classList.toggle('max',climax===1);}
-  if(force||Math.abs(heat-heatShown)>.004){heatShown=heat;$('heat').style.opacity=heat.toFixed(3);}
+  const a=Math.round(arousal),s=Math.round(satisfy);
+  if(force||a!==shown.a||stageIndex!==shown.stage){shown.a=a;shown.stage=stageIndex;$('arousalFill').style.width=a+'%';$('arousalValue').value=a;$('stageLabel').textContent=STAGES[stageIndex][1];$('gArousal').setAttribute('aria-valuenow',a);$('gArousal').classList.toggle('max',climax===1);}
+  if(force||s!==shown.s||calmIndex!==shown.calm){shown.s=s;shown.calm=calmIndex;$('satisfyFill').style.width=s+'%';$('satisfyValue').value=s;$('satisfyLabel').textContent=CALM[calmIndex][1];$('gSatisfy').setAttribute('aria-valuenow',s);$('gSatisfy').classList.toggle('max',calm===1);}
+  if(force||Math.abs(heat-(shown.heat??-1))>.004){shown.heat=heat;$('heat').style.opacity=heat.toFixed(3);}
 }
+// 손놀림 막대: 초록 구간이 만족도가 가장 잘 오르는 속도입니다(화면 0~1200px/초).
+const STROKE_MAX=1200;
+function updateSweetBand(){const [low,high]=CONFIG.만족.적정속도;Object.assign($('strokeSweet').style,{left:low/STROKE_MAX*100+'%',width:(Math.min(high,STROKE_MAX)-low)/STROKE_MAX*100+'%'});}
+function updateStroke(active,speed,quality){
+  const [low,high]=CONFIG.만족.적정속도,chestZone=active&&press.zone==='chest';
+  const label=!active?'—':chestZone?(speed>CONFIG.만족.거칠기한계?'격하게':speed>low?'문지르기':'움켜쥐기'):quality<0?'너무 세요':speed<40?'지압':speed<low?'부드럽게':speed<=high?'딱 좋아요':'조금 빨라요';
+  const left=active?Math.round(Math.min(100,speed/STROKE_MAX*100)):0,kind=!active||chestZone?'':quality<0?'rough':quality>=.95?'good':'';
+  if(label!==shown.label){shown.label=label;$('strokeLabel').textContent=label;}
+  if(left!==shown.left){shown.left=left;$('strokeNeedle').style.left=left+'%';}
+  if(kind!==shown.kind){shown.kind=kind;$('strokeNeedle').className=kind;}
+}
+function ensureSfx(){if(!sfxGain){sfxGain=audioContext.createGain();sfxGain.connect(audioContext.destination);}sfxGain.gain.value=CONFIG.효과음.음량;}
+function soundReady(){return audioContext&&audioContext.state==='running'&&CONFIG.효과음.음량>0;}
 // 흥분도에 맞춰 게이지의 하트가 뛰고, 30% 이상이면 심장 소리가 들립니다.
 function heartbeat(){
-  if(time<nextBeat)return;nextBeat=time+60/(64+heat*96);
+  if(time<nextBeat)return;nextBeat=time+60/(64+heat*96);beatAt=time;
   $('meterHeart').animate([{transform:'scale(1)'},{transform:`scale(${1.15+heat*.3})`},{transform:'scale(1)'}],{duration:260,easing:'ease-out'});
-  if(heat<.3||!audioContext||audioContext.state!=='running'||CONFIG.효과음.음량<=0)return;
-  if(!sfxGain){sfxGain=audioContext.createGain();sfxGain.connect(audioContext.destination);}sfxGain.gain.value=CONFIG.효과음.음량;
+  if(heat<.3||!soundReady())return;ensureSfx();
   const volume=.55*smoothstep(.3,.75,heat),at=audioContext.currentTime+.02;thump(at,volume);thump(at+.17,volume*.6);
 }
 function thump(at,volume){const o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.setValueAtTime(96,at);o.frequency.exponentialRampToValueAtTime(48,at+.13);g.gain.setValueAtTime(0,at);g.gain.linearRampToValueAtTime(volume,at+.012);g.gain.exponentialRampToValueAtTime(.0001,at+.22);o.connect(g);g.connect(sfxGain);o.start(at);o.stop(at+.24);o.onended=()=>{o.disconnect();g.disconnect();};}
+// 만족도 단계가 오를 때 맑은 종소리. 단계가 높을수록 음이 높아집니다.
+function chime(level){
+  $('calmIcon').animate([{transform:'scale(1) rotate(0)'},{transform:'scale(1.5) rotate(45deg)'},{transform:'scale(1) rotate(90deg)'}],{duration:500,easing:'ease-out'});
+  if(!soundReady())return;ensureSfx();const base=[523.25,587.33,659.25,783.99,880,1046.5][Math.min(5,level)],at=audioContext.currentTime+.02;
+  [base,base*1.5].forEach((frequency,i)=>{const start=at+i*.09,o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.value=frequency;g.gain.setValueAtTime(0,start);g.gain.linearRampToValueAtTime(.12,start+.01);g.gain.exponentialRampToValueAtTime(.0001,start+1.1);o.connect(g);g.connect(sfxGain);o.start(start);o.stop(start+1.2);o.onended=()=>{o.disconnect();g.disconnect();};});
+}
 function bindPointer(){const canvas=app.view;canvas.addEventListener('pointermove',movePointer);canvas.addEventListener('pointerdown',event=>{
-  if(!started){startExperience();return;}if(press?.active)return;movePointer(event);const p=modelPoint(event),hit=hitTopwear(p,true);
-  if(hit){const gain=touchGain(hit.x,hit.y);cursorScreen=screenPoint(event);press={id:event.pointerId,x:hit.x,y:hit.y,cx:p.x,cy:p.y,lx:p.x,ly:p.y,vx:0,vy:0,dx:0,dy:0,gain,start:time,active:true,rubScreen:0,holdHeart:0};pressSpring={x:0,y:0,z:0,vx:0,vy:0,vz:4*gain};chestImpulse(hit.x,hit.y,CONFIG.눌림.클릭탄성);onTouchStart(gain);try{canvas.setPointerCapture(event.pointerId);}catch{}canvas.style.cursor='grabbing';}
-});canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',release);canvas.addEventListener('pointerleave',()=>{if(!press?.active)pointer={x:0,y:0};});}
+  if(!started){startExperience();return;}if(press?.active)return;movePointer(event);const p=modelPoint(event),hit=hitZone(p);
+  if(hit){cursorScreen=screenPoint(event);showZone(null);const chestZone=hit.zone==='chest';
+    press={id:event.pointerId,record:hit.record,zone:hit.zone,x:hit.x,y:hit.y,cx:p.x,cy:p.y,lx:p.x,ly:p.y,vx:0,vy:0,dx:0,dy:0,gain:hit.gain,drive:0,start:time,active:true,rubScreen:0,holdFx:0,goodTime:0};
+    pressSpring={x:0,y:0,z:0,vx:0,vy:0,vz:chestZone?4*hit.gain:0};if(chestZone)chestImpulse(hit.x,hit.y,CONFIG.눌림.클릭탄성);onTouchStart();try{canvas.setPointerCapture(event.pointerId);}catch{}canvas.style.cursor=event.pointerType==='mouse'?CURSOR.press:'default';}
+});canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',release);canvas.addEventListener('pointerleave',()=>{showZone(null);if(!press?.active)pointer={x:0,y:0};});}
 
 async function init(buffer){const sequence=++loadSequence;loading=true;$('message').hidden=true;$('loading').hidden=false;$('start').disabled=true;
   try{await ensureLibraries();if(sequence!==loadSequence)return;
-    if(!app){if(!PIXI.utils.isWebGLSupported())throw new Error('WebGL을 사용할 수 없습니다. 브라우저의 하드웨어 가속을 켜주세요.');app=new PIXI.Application({width:innerWidth,height:innerHeight,backgroundAlpha:0,antialias:true,autoDensity:true,resolution:Math.min(devicePixelRatio||1,CONFIG.화면.최대해상도배율),autoStart:false});world=new PIXI.Container();frameMask=new PIXI.Graphics();fx=new PIXI.Container();fx.eventMode='none';heartTex=heartTexture();glowTex=glowTexture();app.stage.addChild(world,frameMask,fx);$('stage').appendChild(app.view);bindPointer();app.ticker.add(()=>{if(!psd||!started)return;const dt=Math.min(app.ticker.deltaMS/1000,.05);time+=dt;updatePlay(dt);updateModel(dt);updateHearts(dt);});}
+    if(!app){if(!PIXI.utils.isWebGLSupported())throw new Error('WebGL을 사용할 수 없습니다. 브라우저의 하드웨어 가속을 켜주세요.');app=new PIXI.Application({width:innerWidth,height:innerHeight,backgroundAlpha:0,antialias:true,autoDensity:true,resolution:Math.min(devicePixelRatio||1,CONFIG.화면.최대해상도배율),autoStart:false});world=new PIXI.Container();frameMask=new PIXI.Graphics();fx=new PIXI.Container();fx.eventMode='none';heartTex=heartTexture();sparkTex=sparkTexture();glowTex={love:glowTexture(255,92,140),calm:glowTexture(127,220,195)};app.stage.addChild(world,frameMask,fx);$('stage').appendChild(app.view);bindPointer();app.ticker.add(()=>{if(!psd||!started)return;const dt=Math.min(app.ticker.deltaMS/1000,.05);time+=dt;updatePlay(dt);updateModel(dt);updateHearts(dt);});}
     if(!buffer){const response=await fetch(CONFIG.파일.PSD);if(!response.ok)throw new Error(`PSD 경로를 확인해주세요 (${response.status}).`);const limit=CONFIG.파일.최대용량MB*1024*1024;const size=Number(response.headers.get('content-length'));if(size>limit)throw new Error('PSD 파일이 용량 제한을 초과했습니다.');if(response.body){const reader=response.body.getReader(),chunks=[];let loaded=0;while(true){const {done,value}=await reader.read();if(done)break;loaded+=value.length;if(loaded>limit){await reader.cancel();throw new Error('PSD 파일이 용량 제한을 초과했습니다.');}chunks.push(value);if(size){$('progress').max=size;$('progress').value=loaded;}}const data=new Uint8Array(loaded);let offset=0;for(const chunk of chunks){data.set(chunk,offset);offset+=chunk.length;}buffer=data.buffer;}else buffer=await response.arrayBuffer();}
     if(sequence!==loadSequence)return;
     const documentPSD=agPsd.readPsd(buffer,{skipCompositeImageData:true,skipThumbnail:true});buildModel(documentPSD);
@@ -422,7 +546,7 @@ async function init(buffer){const sequence=++loadSequence;loading=true;$('messag
   }catch(error){if(sequence!==loadSequence)return;console.error(error);$('loading').hidden=true;$('message').hidden=false;$('errorText').textContent=location.protocol==='file:'?'파일을 직접 열었을 때는 PSD 파일을 선택해주세요. 또는 HTTP 서버에서 실행해주세요.':error.message;$('start').textContent='불러오기 필요';}
   finally{if(sequence===loadSequence)loading=false;}
 }
-function startExperience(){if(!psd||loading)return;started=true;$('welcome').hidden=true;$('meter').hidden=false;$('hintMain').hidden=true;resize();app.start();setMusic(true).catch(error=>{$('stats').textContent='음악을 재생할 수 없습니다: '+error.message;});}
+function startExperience(){if(!psd||loading)return;started=true;$('welcome').hidden=true;$('hud').hidden=false;$('dialog').hidden=false;$('hintMain').hidden=true;updateSweetBand();resize();app.start();say('시작',true);setMusic(true).catch(error=>{$('stats').textContent='음악을 재생할 수 없습니다: '+error.message;});}
 
 // 별도 파일 없는 조용한 Web Audio BGM. 사용자 탭 안에서 AudioContext를 시작합니다.
 function scheduleMusic(){if(!musicOn||!audioContext||audioContext.state!=='running')return;const chords=[[130.81,164.81,196,246.94],[110,130.81,164.81,196],[87.31,130.81,174.61,220],[98,146.83,196,246.94]];while(nextNote<audioContext.currentTime+2){const chord=chords[Math.floor(noteIndex/8)%chords.length],frequency=chord[[0,2,1,3,2,1,3,2][noteIndex%8]]*(noteIndex%3===0?2:1);const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();oscillator.type='sine';oscillator.frequency.value=frequency;gain.gain.setValueAtTime(0,nextNote);gain.gain.linearRampToValueAtTime(.075,nextNote+.15);gain.gain.exponentialRampToValueAtTime(.0001,nextNote+3.5);oscillator.connect(gain);gain.connect(master);oscillator.start(nextNote);oscillator.stop(nextNote+3.6);oscillator.onended=()=>{oscillator.disconnect();gain.disconnect();};nextNote+=.7;noteIndex++;}}
@@ -430,10 +554,10 @@ async function setMusic(on){if(on&&!audioContext){const Audio=window.AudioContex
   if(on){await audioContext.resume();musicOn=true;nextNote=Math.max(nextNote,audioContext.currentTime+.05);master.gain.setTargetAtTime(CONFIG.음악.음량,audioContext.currentTime,.25);scheduleMusic();clearInterval(musicTimer);musicTimer=setInterval(scheduleMusic,500);}else{musicOn=false;clearInterval(musicTimer);if(master)master.gain.setTargetAtTime(0,audioContext.currentTime,.15);}
   $('sound').setAttribute('aria-pressed',String(on));$('sound').setAttribute('aria-label',on?'배경음악 끄기':'배경음악 켜기');
 }
-function createControls(){const definitions=[['숨쉬기','세기','숨쉬기 세기',0,.012,.0005],['숨쉬기','주기','숨쉬기 주기 (초)',2,7,.1],['시선','세기','시선 이동',0,2,.1],['깜빡임','최소간격','깜빡임 최소 간격 (초)',1,6,.1],['깜빡임','최대간격','깜빡임 최대 간격 (초)',2,10,.1],['깜빡임','시간','깜빡임 시간 (초)',.08,.4,.01],['고개','각도','고개 기울기 (도)',0,5,.1],['고개','시차','고개 시차',0,10,.5],['머리카락','세기','머리카락 움직임',0,2,.1],['머리카락','살랑임','머리카락 살랑임',0,2,.1],['머리카락','스프링','머리카락 탄성',10,80,1],['머리카락','감쇠','머리카락 감쇠',3,18,.5],['눌림','세기','눌림 깊이',0,30,1],['눌림','반경','눌림 범위',30,150,5],['눌림','드래그','끌림 세기',0,.8,.05],['눌림','스프링','옷의 탄성',30,160,5],['눌림','감쇠','옷의 감쇠',3,20,.5],['눌림','가슴관성','가슴 관성',0,1.5,.05],['음악','음량','음악 음량',0,.7,.01]];
+function createControls(){const definitions=[['숨쉬기','세기','숨쉬기 세기',0,.012,.0005],['숨쉬기','주기','숨쉬기 주기 (초)',2,7,.1],['시선','세기','시선 이동',0,2,.1],['깜빡임','최소간격','깜빡임 최소 간격 (초)',1,6,.1],['깜빡임','최대간격','깜빡임 최대 간격 (초)',2,10,.1],['깜빡임','시간','깜빡임 시간 (초)',.08,.4,.01],['고개','각도','고개 기울기 (도)',0,5,.1],['고개','시차','고개 시차',0,10,.5],['머리카락','세기','머리카락 움직임',0,2,.1],['머리카락','살랑임','머리카락 살랑임',0,2,.1],['머리카락','스프링','머리카락 탄성',10,80,1],['머리카락','감쇠','머리카락 감쇠',3,18,.5],['눌림','세기','눌림 깊이',0,30,1],['눌림','반경','눌림 범위',30,150,5],['눌림','드래그','달라붙음',0,1,.05],['눌림','최대끌림','최대 끌림 (px)',10,90,1],['눌림','스프링','손 따라옴 (탄성)',30,320,5],['눌림','감쇠','손 따라옴 (감쇠)',3,40,.5],['눌림','가슴관성','가슴 관성',0,1.5,.05],['음악','음량','음악 음량',0,.7,.01]];
   definitions.splice(3,0,['시선','좌우범위','눈동자 좌우 범위 (px)',0,3,.1],['시선','위범위','눈동자 위쪽 범위 (px)',0,.8,.05],['시선','아래범위','눈동자 아래쪽 범위 (px)',0,1,.05]);
   for(let i=definitions.length-1;i>=0;i--)if(definitions[i][0]==='깜빡임')definitions.splice(i,1);
-  definitions.unshift(['흥분','배율','흥분 상승 배율',0,3,.1],['흥분','감소','흥분 감소 속도',0,10,.5],['반응','팔움찔','팔 움찔 세기',0,2.5,.1],['반응','움찔빈도','팔 움찔 빈도',0,3,.1],['반응','눈감기','눈 풀림',0,.6,.02],['반응','입벌림','숨 몰아쉬기 (입)',0,1,.05],['반응','홍조','홍조 세기',0,1.5,.05],['하트','양','하트 양',0,3,.1],['눌림','미끄러짐','문지름 미끄러짐',0,8,.25],['눌림','문지름출렁','문지름 출렁임',0,3,.1],['효과음','음량','심장 소리',0,1,.05]);
+  definitions.unshift(['흥분','배율','흥분 상승 배율',0,3,.1],['흥분','감소','흥분 감소 속도',0,10,.5],['만족','배율','만족 상승 배율',0,3,.1],['만족','감소','만족 감소 속도',0,5,.1],['부위','팔주무름','팔 주무름 세기',0,.8,.05],['반응','하트눈','하트 눈',0,1,.05],['반응','나른함','나른하게 기울기 (도)',0,3,.1],['반응','팔움찔','팔 움찔 세기',0,2.5,.1],['반응','움찔빈도','팔 움찔 빈도',0,3,.1],['반응','눈감기','눈 풀림',0,.6,.02],['반응','입벌림','숨 몰아쉬기 (입)',0,1,.05],['반응','홍조','홍조 세기',0,1.5,.05],['하트','양','하트 양',0,3,.1],['눌림','미끄러짐','문지름 미끄러짐',0,3,.05],['눌림','문지름출렁','문지름 출렁임',0,3,.1],['효과음','음량','심장 소리',0,1,.05]);
   definitions.splice(definitions.length-1,0,['눌림','클릭탄성','클릭 출렁임',0,180,5],['눌림','가슴스프링','출렁임 탄성',30,100,2],['눌림','가슴감쇠','출렁임 감쇠',3,12,.2]);
   $('controls').replaceChildren();for(const [group,key,title,min,max,step] of definitions){const label=document.createElement('label');label.className='setting';const span=document.createElement('span'),text=document.createElement('span'),output=document.createElement('output'),input=document.createElement('input');text.textContent=title;output.value=CONFIG[group][key];input.type='range';input.min=min;input.max=max;input.step=step;input.value=CONFIG[group][key];input.id=`control-${group}-${key}`;output.htmlFor=input.id;span.append(text,output);label.append(span,input);input.addEventListener('input',()=>{CONFIG[group][key]=Number(input.value);output.value=input.value;if(group==='깜빡임')nextBlink=time+randomBlink();if(group==='음악'&&master&&musicOn)master.gain.setTargetAtTime(CONFIG.음악.음량,audioContext.currentTime,.1);});$('controls').append(label);}
 }
@@ -442,7 +566,7 @@ $('start').addEventListener('click',startExperience);$('sound').addEventListener
 $('settings').addEventListener('click',()=>{const show=$('panel').hidden;$('panel').hidden=!show;$('settings').setAttribute('aria-expanded',String(show));$('settings').setAttribute('aria-label',show?'효과 설정 닫기':'효과 설정 열기');});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){$('panel').hidden=true;$('settings').setAttribute('aria-expanded','false');$('settings').focus();}});
 $('debug').checked=CONFIG.화면.디버그;$('layers').hidden=!CONFIG.화면.디버그;$('debug').addEventListener('change',()=>{CONFIG.화면.디버그=$('debug').checked;$('layers').hidden=!$('debug').checked;});
-$('reset').addEventListener('click',()=>{for(const group of Object.keys(DEFAULTS))Object.assign(CONFIG[group],structuredClone(DEFAULTS[group]));for(const r of records)r.enabled=!r.layer.hidden;arousal=heat=0;climax=0;stageIndex=0;createControls();createLayerControls();nextBlink=time+randomBlink();$('debug').checked=CONFIG.화면.디버그;$('layers').hidden=!CONFIG.화면.디버그;if(master&&musicOn)master.gain.setTargetAtTime(CONFIG.음악.음량,audioContext.currentTime,.1);if(psd){updateModel(0);updateMeter(true);app.render();}});
+$('reset').addEventListener('click',()=>{for(const group of Object.keys(DEFAULTS))Object.assign(CONFIG[group],structuredClone(DEFAULTS[group]));for(const r of records)r.enabled=!r.layer.hidden;arousal=heat=satisfy=relax=0;climax=calm=0;stageIndex=calmIndex=0;createControls();updateSweetBand();createLayerControls();nextBlink=time+randomBlink();$('debug').checked=CONFIG.화면.디버그;$('layers').hidden=!CONFIG.화면.디버그;if(master&&musicOn)master.gain.setTargetAtTime(CONFIG.음악.음량,audioContext.currentTime,.1);if(psd){updateModel(0);updateMeter(true);app.render();}});
 $('file').addEventListener('change',async event=>{const file=event.target.files[0];if(!file)return;if(file.size>CONFIG.파일.최대용량MB*1024*1024){$('errorText').textContent='PSD 파일이 용량 제한을 초과했습니다.';return;}await init(await file.arrayBuffer());});
 document.querySelector('label[for=file]').addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();$('file').click();}});
 $('retry').addEventListener('click',()=>init());addEventListener('resize',resize);document.addEventListener('visibilitychange',()=>{if(document.hidden){app?.stop();if(press)press.active=false;audioContext?.suspend();}else{if(started){app?.start();if(musicOn)audioContext?.resume().then(()=>{nextNote=audioContext.currentTime+.05;});}}});

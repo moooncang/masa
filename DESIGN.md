@@ -1,20 +1,29 @@
 ---
-name: "리아나 · 조용한 순간"
-description: "A quiet dark setting for a supplied PSD character."
+name: "레이나 · 마사지"
+description: "An adult-game style massage stage for a supplied PSD character, with arousal and satisfaction gauges."
 colors:
-  accent: "#d6bb91"
-  bg: "#13151b"
-  panel: "#20232b"
-  text: "#f0ede8"
-  muted: "#b3b5c1"
-  line: "#393d49"
-  tool: "#191c24"
-  tool-hover: "#30313a"
-  accent-hover: "#ead2ac"
-  button-text: "#242028"
-  scrollbar: "#6a5e4d"
-  frame-edge: "#8b7c6459"
+  accent: "#f4a6c2"
+  bg: "#150d14"
+  panel: "#22161f"
+  text: "#f6eef2"
+  muted: "#c3aebb"
+  line: "#47303f"
+  tool: "#1d121a"
+  tool-hover: "#33202d"
+  accent-hover: "#ffc3d8"
+  button-text: "#2a1020"
+  scrollbar: "#7a4a63"
+  frame-edge: "#f4a6c230"
+  love: "#ff5c96"
+  love-soft: "#ffb3cf"
+  calm: "#7fdcc3"
+  calm-soft: "#c4f2e4"
 typography:
+  story:
+    fontFamily: '"Gowun Batang", "Batang", serif'
+    fontSize: "16px"
+    fontWeight: 400
+    lineHeight: 1.6
   title:
     fontFamily: '"Segoe UI", "Malgun Gothic", sans-serif'
     fontSize: "17px"
@@ -208,4 +217,14 @@ Waist touches have zero deformation gain. All touch deformation fades between no
 - **Don't** replace the organic layer alpha with geometric cutouts.
 - **Don't** turn the small supporting text into competing display content.
 
-Not canonized or repaired: the installed display serif is a craft-floor defect; it is observed above but excluded from reusable typography tokens because this pass documents the build without changing source.
+## Massage Mode (v2)
+
+This section supersedes the earlier sand-on-slate palette, the Georgia display serif, and the touch values quoted above where they differ.
+
+- **Palette.** A wine-dark stage (`bg`, radial from `#33202d`) carries two semantic accents: **love** pink for arousal (gauge, hearts, chest glow, sensitive-zone tags) and **calm** mint for satisfaction (gauge, sparkles, massage glow, good-stroke feedback). `accent` soft pink marks actions, focus, and the dialogue name plate. Never swap the two semantic colors.
+- **Type.** Gowun Batang (Google Fonts) is the story voice: the character name and dialogue text. UI chrome stays on Segoe UI / Malgun Gothic.
+- **HUD.** Two gauges (흥분도, 만족도) with quarter ticks, stage labels, and a 손놀림 meter showing hand speed against the mint sweet-spot band. Wide screens (≥900px) place it as a left card and recenter the portrait in the remaining width; narrow screens place it as a two-column strip under the header.
+- **Dialogue window.** An adult-game ADV box with a pill name plate overlaps the portrait's bottom edge by 14px, types lines at 30 characters per second, and dims to 50% after 5 seconds of silence.
+- **Feedback.** Pills at the hand show '민감♥', '딱 좋아요♪', or '너무 세요!'. Hovering a zone shows a tag (가슴 · 민감♥ / 어깨·팔 · 뭉침 / 허리 · 뭉침) and a hand cursor.
+- **Narrow crop.** When width-bound, the portrait trims the arm ends (minimum 620 PSD px around x 470) so the character stays large on phones.
+- **Shadows.** Overlays use neutral black shadows only; colored glow lives in canvas particles, not CSS.
