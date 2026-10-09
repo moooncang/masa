@@ -54,10 +54,10 @@ const CONFIG = {
     클릭탄성: 120, 가슴스프링: 58, 가슴감쇠: 4.8 },
   // 흥분도는 0~100. 가슴을 누르고(초당) 문지를수록(화면 1000px/초 기준) 오릅니다.
   // 다른부위: 흥분도가 높을 때 어깨·팔·허리를 만져도 오르는 양(초당).
-  흥분: { 배율: 1, 터치: 3, 누르기: 2.5, 문지르기: 9, 다른부위: 1.5, 감소: 3, 감소대기: 1.8, 절정유지: 3.2, 여운: 40 },
+  흥분: { 배율: 1, 터치: 4, 누르기: 4, 문지르기: 14, 다른부위: 1.5, 감소: 3, 감소대기: 1.8, 절정유지: 3.2, 여운: 40 },
   // 만족도는 0~100. 어깨·팔·허리를 적정속도(화면 px/초)로 주무르면 초당 상승만큼 오르고,
-  // 거칠기한계보다 빠르면 오히려 내려갑니다. 가슴은 가슴비율만큼만 오릅니다.
-  만족: { 배율: 1, 상승: 7, 감소: 1.2, 감소대기: 3, 적정속도: [110, 520], 거칠기한계: 950, 가슴비율: 0.3, 극락유지: 3, 여운: 75 },
+  // 거칠기한계보다 빠르면 오히려 내려갑니다. 가슴은 만족도를 올리지 않습니다.
+  만족: { 배율: 1, 상승: 4, 감소: 1.2, 감소대기: 3, 적정속도: [110, 520], 거칠기한계: 950, 극락유지: 3, 여운: 75 },
   // 적정 구간 변화: 만족도·흥분도 100일 때 구간 중심이 움직이는 양(화면 px/초, +는 빠르게)과 폭 변화 비율(-0.3이면 30% 좁아짐).
   // 기본값: 만족할수록 근육이 풀려 더 세게(빠르게), 흥분할수록 예민해져 더 부드럽게(느리게) 원합니다.
   구간변화: { 만족이동: 260, 만족폭: -0.3, 흥분이동: -180, 흥분폭: -0.25 },
@@ -443,14 +443,15 @@ function updatePlay(dt){
   if(climax===0&&arousal>=100)startClimax();
   if(climax===1&&(climaxTimer-=dt)<=0)climax=2;
   if(climax===2){arousal=Math.max(CONFIG.흥분.여운,arousal-30*dt);if(arousal<=CONFIG.흥분.여운)climax=0;}
-  // 만족도: 적정 속도의 주무르기·지압이 올리고, 너무 거칠면 내려갑니다.
-  if(active&&calm===0){
-    const q=chestTouch?Math.max(0,quality):quality,zoneRate=chestTouch?CONFIG.만족.가슴비율:1;
-    satisfy=clamp(satisfy+CONFIG.만족.상승*CONFIG.만족.배율*zoneRate*q*(q<0?1.6:1)*dt,0,100);
-    if(!chestTouch&&q<0&&time-lastRough>2.4){lastRough=time;popup('너무 세요!','rough');say('아픔',true);twitch(22);}
-    if(!chestTouch&&q>=.95){if((press.goodTime+=dt)>1.6){press.goodTime=0;popup(GOOD[Math.floor(Math.random()*GOOD.length)],'calm');}}else press.goodTime=0;
+  // 만족도: 어깨·팔·허리를 적정 속도로 주무르거나 지압하면 오르고, 너무 거칠면 내려갑니다. 가슴은 만족도에 영향이 없습니다.
+  const massaging=active&&!chestTouch;
+  if(massaging&&calm===0){
+    const q=quality;
+    satisfy=clamp(satisfy+CONFIG.만족.상승*CONFIG.만족.배율*q*(q<0?1.6:1)*dt,0,100);
+    if(q<0&&time-lastRough>2.4){lastRough=time;popup('너무 세요!','rough');say('아픔',true);twitch(22);}
+    if(q>=.95){if((press.goodTime+=dt)>1.6){press.goodTime=0;popup(GOOD[Math.floor(Math.random()*GOOD.length)],'calm');}}else press.goodTime=0;
   }
-  massageIdle=active?0:massageIdle+dt;
+  massageIdle=massaging?0:massageIdle+dt;
   if(calm===0&&massageIdle>CONFIG.만족.감소대기)satisfy=Math.max(0,satisfy-CONFIG.만족.감소*dt);
   if(calm===0&&satisfy>=100)startBliss();
   if(calm===1&&(calmTimer-=dt)<=0)calm=2;
