@@ -10,7 +10,11 @@
 :root{color-scheme:dark;--bg:#150d14;--panel:#22161f;--text:#f6eef2;--muted:#c3aebb;--line:#47303f;--accent:#f4a6c2;--love:#ff5c96;--love-soft:#ffb3cf;--calm:#7fdcc3;--calm-soft:#c4f2e4;--story:"Gowun Batang","Batang",serif;font-family:"Segoe UI","Malgun Gothic",sans-serif}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:var(--bg);color:var(--text)}
 body{user-select:none;-webkit-user-select:none}button,input{font:inherit}button{color:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible,input:focus-visible,label:focus-within{outline:2px solid var(--accent);outline-offset:5px}::selection{background:var(--accent);color:var(--bg)}
-#stage{position:absolute;inset:0;touch-action:none;background:radial-gradient(ellipse at 50% 45%,#33202d 0%,#1f141c 42%,#150d14 80%)}#stage canvas{display:block;width:100%;height:100%;touch-action:none}
+#stage{position:absolute;inset:0;overflow:hidden;touch-action:none;background:radial-gradient(ellipse at 50% 45%,#33202d 0%,#1f141c 42%,#150d14 80%)}#stage canvas{position:relative;display:block;width:100%;height:100%;touch-action:none}
+#sceneBlur{position:absolute;inset:-40px;pointer-events:none;background-position:center;background-size:cover;filter:blur(28px) brightness(.32) saturate(1.2);opacity:0;transition:opacity .5s}#scene{position:absolute;pointer-events:none;background-position:center;background-size:cover;background-repeat:no-repeat;transition:opacity .4s}
+#bgPanel{position:absolute;z-index:5;top:calc(85px + env(safe-area-inset-top));right:24px;width:300px;max-width:calc(100vw - 32px);max-height:calc(100% - 160px);overflow-y:auto;overscroll-behavior:contain;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 16px 48px #0005}#bgPanel h2{font-size:17px;margin:0 0 6px;font-weight:600}#bgPanel p{font-size:12px;color:var(--muted);line-height:1.6;margin:0 0 16px}
+#bgList{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.bg-option{padding:0;background:none;border:0;text-align:center;font-size:11px;color:var(--muted)}.bg-option i{display:block;aspect-ratio:4/3;margin-bottom:6px;border-radius:10px;border:1px solid var(--line);background-position:center;background-size:cover;background-color:#150d14}.bg-option[aria-pressed=true]{color:var(--text)}.bg-option[aria-pressed=true] i{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}.bg-option:hover i{border-color:var(--accent)}.bg-option.none i{background-image:linear-gradient(135deg,transparent 46%,#47303f 46% 54%,transparent 54%)}
+#bgUpload{display:inline-block;margin-top:16px;cursor:pointer}#bgFile{position:absolute;width:1px;height:1px;opacity:0}
 #frame{position:absolute;z-index:1;border:1px solid #f4a6c230;border-radius:16px;pointer-events:none;overflow:hidden;box-shadow:inset 0 0 0 4px #150d1444}#frame::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(transparent,#150d1499)}
 header{position:absolute;z-index:2;top:calc(26px + env(safe-area-inset-top));left:32px;right:32px;display:flex;align-items:center;justify-content:space-between;pointer-events:none}h1{font-family:var(--story);font-weight:700;font-size:25px;margin:0;letter-spacing:.08em}header p{margin:7px 0 0;color:var(--muted);font-size:12px;letter-spacing:.1em}.tools{display:flex;gap:8px;pointer-events:auto}.tool{width:44px;height:44px;background:#1d121a;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:background .2s,border-color .2s}.tool:hover,.tool[aria-pressed=true]{background:#33202d;border-color:var(--accent)}svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 footer{position:absolute;z-index:2;bottom:calc(22px + env(safe-area-inset-bottom));left:24px;right:24px;text-align:center;color:var(--muted);font-size:12px;pointer-events:none}footer .sub{margin-top:8px;color:var(--accent);font-size:11px;letter-spacing:.1em}
@@ -19,7 +23,7 @@ footer{position:absolute;z-index:2;bottom:calc(22px + env(safe-area-inset-bottom
 #hud{position:absolute;z-index:3;left:32px;top:50%;transform:translateY(-50%);width:212px;padding:16px 16px 14px;background:#1d121acc;border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:none;box-shadow:0 14px 36px #0007}
 .gauge{margin-bottom:14px}.g-head{display:flex;align-items:center;gap:7px;font-size:12px;margin-bottom:7px;color:var(--text)}.g-head svg{width:16px;height:16px;fill:currentColor;stroke:none;flex:none}.g-head output{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:700;font-size:13px}.g-track{position:relative;height:10px;border-radius:10px;background:#ffffff12;overflow:hidden}.g-track::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(25% - 1px),#150d14bb calc(25% - 1px) 25%)}.g-fill{position:absolute;inset:0 auto 0 0;width:0;border-radius:inherit}.g-stage{margin-top:6px;font-size:11px;letter-spacing:.06em}
 #gArousal svg,#gArousal output{color:var(--love)}#gArousal .g-fill{background:linear-gradient(90deg,#ff9ec0,#ff4f8b 60%,#ff2a6d)}#gArousal .g-stage{color:var(--love-soft)}#gSatisfy svg,#gSatisfy output{color:var(--calm)}#gSatisfy .g-fill{background:linear-gradient(90deg,#c9f3e6,#6fd6b8 60%,#3fbf9c)}#gSatisfy .g-stage{color:var(--calm-soft)}.gauge.max .g-fill{animation:shine .7s ease-in-out infinite alternate}@keyframes shine{to{filter:brightness(1.3)}}
-#stroke{padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}.s-head{display:flex;justify-content:space-between;margin-bottom:7px}#strokeLabel{color:var(--text)}.s-track{position:relative;height:6px;border-radius:6px;background:#ffffff12}#strokeSweet{position:absolute;top:0;bottom:0;border-radius:6px;background:#7fdcc340;box-shadow:inset 0 0 0 1px #7fdcc380}#strokeNeedle{position:absolute;top:-3px;left:0;width:3px;height:12px;border-radius:2px;background:var(--text);transform:translateX(-50%);transition:left .12s linear}#strokeNeedle.rough{background:#ff6b6b}#strokeNeedle.good{background:var(--calm)}
+#stroke{padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}.s-head{display:flex;justify-content:space-between;margin-bottom:7px}#strokeLabel{color:var(--text)}.s-track{position:relative;height:6px;border-radius:6px;background:#ffffff12}#strokeSweet{position:absolute;top:0;bottom:0;border-radius:6px;transition:left .35s ease-out,width .35s ease-out;background:#7fdcc340;box-shadow:inset 0 0 0 1px #7fdcc380}#strokeNeedle{position:absolute;top:-3px;left:0;width:3px;height:12px;border-radius:2px;background:var(--text);transform:translateX(-50%);transition:left .12s linear}#strokeNeedle.rough{background:#ff6b6b}#strokeNeedle.good{background:var(--calm)}
 #dialog{position:absolute;z-index:3;left:50%;top:0;transform:translateX(-50%);width:min(640px,calc(100vw - 32px));min-height:74px;padding:19px 22px 15px;background:linear-gradient(180deg,#26161fec,#1a1017f5);border:1px solid #f4a6c244;border-radius:14px;pointer-events:none;box-shadow:0 14px 36px #0008;transition:opacity .6s}#dialog.idle{opacity:.5}#dialog .name{position:absolute;top:-12px;left:18px;padding:3px 14px;border-radius:999px;background:var(--accent);color:#2a1020;font-size:12px;font-weight:700;letter-spacing:.12em}#dialogText{font-family:var(--story);font-size:16px;line-height:1.6;min-height:1.6em}#dialog .next{position:absolute;right:18px;bottom:12px;width:7px;height:7px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(45deg);animation:bob 1s ease-in-out infinite}@keyframes bob{50%{translate:0 3px}}
 .pop{position:absolute;z-index:3;pointer-events:none;font-size:13px;font-weight:700;padding:3px 11px;border-radius:999px;white-space:nowrap;translate:-50% -100%}.pop.love{background:var(--love);color:#fff}.pop.calm{background:var(--calm);color:#0f2a23}.pop.rough{background:#3a1d24;color:#ff9a9a;border:1px solid #ff6b6b88}
 #zoneTag{position:absolute;z-index:3;left:0;top:0;pointer-events:none;font-size:11px;padding:3px 10px;border-radius:999px;background:#1d121ae0;border:1px solid var(--line);white-space:nowrap}#zoneTag.love{color:var(--love-soft);border-color:#ff5c9666}#zoneTag.calm{color:var(--calm-soft);border-color:#7fdcc366}
@@ -27,7 +31,7 @@ footer{position:absolute;z-index:2;bottom:calc(22px + env(safe-area-inset-bottom
 #welcome{position:absolute;z-index:3;bottom:calc(86px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);text-align:center;width:min(360px,90vw)}#welcome p{font-size:13px;color:var(--muted);margin:0 0 17px;line-height:1.7}.primary{background:var(--accent);color:#2a1020;border:0;border-radius:28px;min-height:50px;padding:0 32px;font-weight:600;box-shadow:0 8px 30px #0003;transition:background .2s,transform .2s}.primary:hover{background:#ffc3d8;transform:translateY(-2px)}.primary:disabled{cursor:wait;opacity:.65;transform:none}
 #message{position:absolute;z-index:4;top:50%;left:50%;transform:translate(-50%,-50%);max-width:90vw;width:360px;text-align:center;padding:24px;background:var(--panel);border:1px solid var(--line);border-radius:16px}#message p{line-height:1.7;font-size:14px;color:var(--muted)}#message label{display:inline-block;padding:12px 20px;background:var(--accent);color:#2a1020;border-radius:24px;cursor:pointer}#file{position:absolute;width:1px;height:1px;opacity:0}#loading{position:absolute;z-index:2;top:48%;left:50%;transform:translate(-50%,-50%);color:var(--muted);font-size:13px;text-align:center}progress{display:block;width:170px;height:3px;margin:15px auto;accent-color:var(--accent)}
 #panel{position:absolute;z-index:5;top:calc(85px + env(safe-area-inset-top));right:24px;bottom:calc(65px + env(safe-area-inset-bottom));width:310px;max-width:calc(100vw - 32px);overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 16px 48px #0005;scrollbar-width:thin;scrollbar-color:#7a4a63 var(--panel)}#panel h2{font-size:17px;margin:0 0 8px;font-weight:600}#panel p{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 20px}#panel h3{font-size:13px;font-weight:600;margin:24px 0 14px;padding-top:18px;border-top:1px solid var(--line)}.setting{display:block;font-size:12px;margin:15px 0}.setting span{display:flex;justify-content:space-between;gap:10px}.setting output{color:var(--accent);font-variant-numeric:tabular-nums}.setting input{width:100%;margin:10px 0 0;accent-color:var(--accent);touch-action:pan-y}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;margin:12px 0}.row input{accent-color:var(--accent);width:17px;height:17px}.row small{color:var(--muted)}.secondary{background:transparent;border:1px solid var(--line);border-radius:20px;padding:9px 16px;font-size:12px}.secondary:hover{border-color:var(--accent)}#layers .row{font-size:11px}#layers label{display:flex;align-items:center;gap:9px}#stats{font-variant-numeric:tabular-nums;color:var(--muted);font-size:11px;margin-top:18px}[hidden]{display:none!important}
-@media(max-width:600px){header{left:20px;right:20px;top:calc(18px + env(safe-area-inset-top))}h1{font-size:21px}header p{font-size:11px}.tool{width:40px;height:40px}#panel{right:16px}footer{font-size:11px;bottom:calc(18px + env(safe-area-inset-bottom))}#welcome{bottom:calc(82px + env(safe-area-inset-bottom))}}
+@media(max-width:600px){header{left:20px;right:20px;top:calc(18px + env(safe-area-inset-top))}h1{font-size:21px}header p{font-size:11px}.tool{width:40px;height:40px}#panel,#bgPanel{right:16px}footer{font-size:11px;bottom:calc(18px + env(safe-area-inset-bottom))}#welcome{bottom:calc(82px + env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){button{transition:none!important}}
 </style>
 <script>
@@ -54,6 +58,17 @@ const CONFIG = {
   // 만족도는 0~100. 어깨·팔·허리를 적정속도(화면 px/초)로 주무르면 초당 상승만큼 오르고,
   // 거칠기한계보다 빠르면 오히려 내려갑니다. 가슴은 가슴비율만큼만 오릅니다.
   만족: { 배율: 1, 상승: 7, 감소: 1.2, 감소대기: 3, 적정속도: [110, 520], 거칠기한계: 950, 가슴비율: 0.3, 극락유지: 3, 여운: 75 },
+  // 적정 구간 변화: 만족도·흥분도 100일 때 구간 중심이 움직이는 양(화면 px/초, +는 빠르게)과 폭 변화 비율(-0.3이면 30% 좁아짐).
+  // 기본값: 만족할수록 근육이 풀려 더 세게(빠르게), 흥분할수록 예민해져 더 부드럽게(느리게) 원합니다.
+  구간변화: { 만족이동: 260, 만족폭: -0.3, 흥분이동: -180, 흥분폭: -0.25 },
+  // 배경: 캐릭터 액자 안쪽 뒤에 깔립니다. 이미지는 assets/bg/ 에 넣고 { 이름: '마사지실', 이미지: './assets/bg/room.jpg' } 처럼 추가하세요.
+  // 색 항목은 이미지 대신 CSS 배경을 씁니다. 기본은 처음 선택될 이름이며, 고른 배경은 이 브라우저에 기억됩니다.
+  배경: { 기본: '기본', 목록: [
+    { 이름: '기본', 색: 'transparent' },
+    { 이름: '와인', 색: 'radial-gradient(ellipse at 50% 38%,#4a2a3c 0%,#2a1823 55%,#170d14 100%)' },
+    { 이름: '스파', 색: 'radial-gradient(ellipse at 50% 35%,#2a4a47 0%,#173130 55%,#0d1b1b 100%)' },
+    { 이름: '촛불', 색: 'radial-gradient(ellipse at 50% 78%,#6b3d1c 0%,#3a2114 50%,#1a100c 100%)' },
+  ] },
   // 팔주무름: 팔을 잡고 끌 때 살이 따라오는 비율.
   부위: { 팔주무름: 0.3 },
   // 홍조선: face 레이어 안의 상대 좌표 (0~1). 홍조가 그려질 사선 띠의 양 끝입니다.
@@ -80,7 +95,7 @@ const CONFIG = {
 </script>
 </head>
 <body>
-<main id="stage" aria-label="마우스와 터치에 반응하는 레이나 캐릭터"></main>
+<main id="stage" aria-label="마우스와 터치에 반응하는 레이나 캐릭터"><div id="sceneBlur" aria-hidden="true"></div><div id="scene" hidden aria-hidden="true"></div></main>
 <div id="frame" hidden aria-hidden="true"></div>
 <div id="heat" aria-hidden="true"></div><div id="flash" aria-hidden="true"></div><div id="zoneTag" hidden aria-hidden="true"></div>
 <aside id="hud" hidden aria-label="레이나 상태">
@@ -91,12 +106,14 @@ const CONFIG = {
 <div id="dialog" hidden aria-live="polite"><span class="name">레이나</span><div id="dialogText"></div><i class="next" aria-hidden="true"></i></div>
 <header><div><h1>레이나</h1><p>조용히, 당신의 곁에</p></div><div class="tools">
 <button class="tool" id="sound" aria-label="배경음악 켜기" aria-pressed="false" title="배경음악"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13M9 8l11-2"/><ellipse cx="6" cy="18" rx="3" ry="2.5"/><ellipse cx="17" cy="16" rx="3" ry="2.5"/></svg></button>
+<button class="tool" id="background" aria-label="배경 선택 열기" aria-expanded="false" aria-controls="bgPanel" title="배경"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="16" cy="9" r="1.6"/></svg></button>
 <button class="tool" id="settings" aria-label="효과 설정 열기" aria-expanded="false" aria-controls="panel" title="효과 설정"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#1d121a"/><circle cx="15" cy="17" r="3" fill="#1d121a"/></svg></button>
 </div></header>
 <div id="loading" role="status">레이나를 불러오는 중<progress id="progress"></progress></div>
 <div id="message" hidden role="alert"><strong>캐릭터를 불러오지 못했어요</strong><p id="errorText"></p><label for="file" tabindex="0">PSD 파일 선택</label><input type="file" id="file" accept=".psd"><p>파일은 이 브라우저에서만 읽습니다.</p><button class="secondary" id="retry">다시 불러오기</button></div>
 <div id="welcome"><p id="intro">레이나의 마사지 시간이에요.</p><button id="start" class="primary" disabled>불러오는 중…</button></div>
 <footer id="hint"><div id="hintMain">마우스를 움직여 눈을 맞춰보세요</div><div class="sub">가슴은 흥분도 · 어깨와 팔, 허리는 만족도가 올라가요</div></footer>
+<aside id="bgPanel" hidden aria-label="배경 선택"><h2>배경</h2><p>캐릭터 뒤에 깔릴 배경을 골라주세요.</p><div id="bgList"></div><label id="bgUpload" class="secondary" for="bgFile" tabindex="0">내 이미지 불러오기</label><input type="file" id="bgFile" accept="image/*"><p style="margin:10px 0 0">불러온 이미지는 이 창에서만 쓰이고 저장되지 않습니다.</p></aside>
 <aside id="panel" hidden aria-label="효과 설정"><h2>움직임 조절</h2><p>작은 변화로 다른 분위기를 만들어보세요.</p><div id="controls"></div><button class="secondary" id="reset">기본값으로 돌아가기</button><h3>디버그</h3><label class="row">레이어 목록 보기<input id="debug" type="checkbox"></label><div id="layers" hidden></div><div id="stats"></div></aside>
 <script>
 'use strict';
@@ -246,6 +263,7 @@ function resize(){
   const p=world.toGlobal(new PIXI.Point(crop.left,crop.top)),w=(crop.right-crop.left)*scale,h=(crop.bottom-crop.top)*scale;
   frameMask.clear().beginFill(0xffffff).drawRoundedRect(p.x,p.y,w,h,CONFIG.화면.프레임반경).endFill();world.mask=frameMask;
   Object.assign($('frame').style,{left:p.x+'px',top:p.y+'px',width:w+'px',height:h+'px',borderRadius:CONFIG.화면.프레임반경+'px'});$('frame').hidden=false;
+  Object.assign($('scene').style,{left:p.x+'px',top:p.y+'px',width:w+'px',height:h+'px',borderRadius:CONFIG.화면.프레임반경+'px'});$('scene').hidden=false;
   Object.assign($('dialog').style,{left:(p.x+w/2)+'px',top:(p.y+h-14)+'px',width:Math.min(640,w-24,width-32)+'px'});
   app.render();
 }
@@ -382,7 +400,14 @@ function calmKey(){return CALM[calmIndex][0];}
 function voiceKey(zone){return zone==='chest'||(heat>.6&&Math.random()<heat*.6)?stageKey():calmKey();}
 function twitch(power){const p=power*CONFIG.반응.팔움찔;for(const arm of arms)arm.va+=arm.sign*p*(.55+Math.random()*.9);flinch.va+=p*.32;}
 // 손놀림 품질: 적정 속도면 1, 가만히 누르면 지압(0.5), 거칠기한계를 넘으면 0 아래(아픔).
-function strokeQuality(speed){const [low,high]=CONFIG.만족.적정속도,rough=CONFIG.만족.거칠기한계;if(speed<40)return .5;if(speed<low)return .5+.5*(speed-40)/Math.max(1,low-40);if(speed<=high)return 1;if(speed<=rough)return 1-(speed-high)/Math.max(1,rough-high);return -Math.min(1,(speed-rough)/400);}
+// 적정 구간은 만족도·흥분도에 따라 이동하고 좁아집니다. 거칠기한계도 같은 간격을 유지하며 따라갑니다.
+function sweetZone(){
+  const [baseLow,baseHigh]=CONFIG.만족.적정속도,change=CONFIG.구간변화,sat=satisfy/100,hot=heat;
+  const center=(baseLow+baseHigh)/2+change.만족이동*sat+change.흥분이동*hot,half=(baseHigh-baseLow)/2*Math.max(.15,(1+change.만족폭*sat)*(1+change.흥분폭*hot));
+  const low=Math.max(45,center-half),high=Math.max(low+30,center+half);
+  return {low,high,rough:high+Math.max(60,CONFIG.만족.거칠기한계-baseHigh)};
+}
+function strokeQuality(speed){const {low,high,rough}=sweetZone();if(speed<40)return .5;if(speed<low)return .5+.5*(speed-40)/Math.max(1,low-40);if(speed<=high)return 1;if(speed<=rough)return 1-(speed-high)/Math.max(1,rough-high);return -Math.min(1,(speed-rough)/400);}
 function onTouchStart(){
   if(press.zone==='chest'){
     twitch((26+arousal*.3)*press.gain);
@@ -448,7 +473,7 @@ function updatePlay(dt){
   if(heat>.5&&chest.length&&Math.random()<dt*(heat-.5)*6*CONFIG.하트.양){const c=chest[Math.floor(Math.random()*chest.length)],p=world.toGlobal(new PIXI.Point(c.cx+(Math.random()-.5)*90,c.cy+(Math.random()-.5)*60));emitHeart(p.x,p.y,{size:.75,speed:40+Math.random()*50});}
   if(relax>.55&&Math.random()<dt*(relax-.55)*4*CONFIG.하트.양){const p=world.toGlobal(new PIXI.Point(anchor.x+(Math.random()-.5)*260,anchor.y-140+(Math.random()-.5)*90));emitSpark(p.x,p.y,{size:.7,speed:25+Math.random()*30});}
   app.stage.position.set(Math.sin(time*53)*shiver*2.2,Math.cos(time*47)*shiver*1.6);
-  heartbeat();updateStroke(active,speed,quality);updateDialog(dt);updateMeter();
+  heartbeat();updateSweetBand();updateStroke(active,speed,quality);updateDialog(dt);updateMeter();
 }
 function flash(background,peak){if(reducedMotion)return;const el=$('flash');el.style.background=background;el.animate([{opacity:0},{opacity:peak,offset:.08},{opacity:0}],{duration:1500,easing:'ease-out'});}
 function startClimax(){
@@ -504,10 +529,11 @@ function updateMeter(force){
 }
 // 손놀림 막대: 초록 구간이 만족도가 가장 잘 오르는 속도입니다(화면 0~1200px/초).
 const STROKE_MAX=1200;
-function updateSweetBand(){const [low,high]=CONFIG.만족.적정속도;Object.assign($('strokeSweet').style,{left:low/STROKE_MAX*100+'%',width:(Math.min(high,STROKE_MAX)-low)/STROKE_MAX*100+'%'});}
+function updateSweetBand(force){const {low,high}=sweetZone(),left=Math.round(low/STROKE_MAX*1000)/10,width=Math.round((Math.min(high,STROKE_MAX)-low)/STROKE_MAX*1000)/10;
+  if(!force&&left===shown.bandLeft&&width===shown.bandWidth)return;shown.bandLeft=left;shown.bandWidth=width;Object.assign($('strokeSweet').style,{left:left+'%',width:width+'%'});}
 function updateStroke(active,speed,quality){
-  const [low,high]=CONFIG.만족.적정속도,chestZone=active&&press.zone==='chest';
-  const label=!active?'—':chestZone?(speed>CONFIG.만족.거칠기한계?'격하게':speed>low?'문지르기':'움켜쥐기'):quality<0?'너무 세요':speed<40?'지압':speed<low?'부드럽게':speed<=high?'딱 좋아요':'조금 빨라요';
+  const {low,high,rough}=sweetZone(),chestZone=active&&press.zone==='chest';
+  const label=!active?'—':chestZone?(speed>rough?'격하게':speed>low?'문지르기':'움켜쥐기'):quality<0?'너무 세요':speed<40?'지압':speed<low?'부드럽게':speed<=high?'딱 좋아요':'조금 빨라요';
   const left=active?Math.round(Math.min(100,speed/STROKE_MAX*100)):0,kind=!active||chestZone?'':quality<0?'rough':quality>=.95?'good':'';
   if(label!==shown.label){shown.label=label;$('strokeLabel').textContent=label;}
   if(left!==shown.left){shown.left=left;$('strokeNeedle').style.left=left+'%';}
@@ -546,7 +572,7 @@ async function init(buffer){const sequence=++loadSequence;loading=true;$('messag
   }catch(error){if(sequence!==loadSequence)return;console.error(error);$('loading').hidden=true;$('message').hidden=false;$('errorText').textContent=location.protocol==='file:'?'파일을 직접 열었을 때는 PSD 파일을 선택해주세요. 또는 HTTP 서버에서 실행해주세요.':error.message;$('start').textContent='불러오기 필요';}
   finally{if(sequence===loadSequence)loading=false;}
 }
-function startExperience(){if(!psd||loading)return;started=true;$('welcome').hidden=true;$('hud').hidden=false;$('dialog').hidden=false;$('hintMain').hidden=true;updateSweetBand();resize();app.start();say('시작',true);setMusic(true).catch(error=>{$('stats').textContent='음악을 재생할 수 없습니다: '+error.message;});}
+function startExperience(){if(!psd||loading)return;started=true;$('welcome').hidden=true;$('hud').hidden=false;$('dialog').hidden=false;$('hintMain').hidden=true;updateSweetBand(true);resize();app.start();say('시작',true);setMusic(true).catch(error=>{$('stats').textContent='음악을 재생할 수 없습니다: '+error.message;});}
 
 // 별도 파일 없는 조용한 Web Audio BGM. 사용자 탭 안에서 AudioContext를 시작합니다.
 function scheduleMusic(){if(!musicOn||!audioContext||audioContext.state!=='running')return;const chords=[[130.81,164.81,196,246.94],[110,130.81,164.81,196],[87.31,130.81,174.61,220],[98,146.83,196,246.94]];while(nextNote<audioContext.currentTime+2){const chord=chords[Math.floor(noteIndex/8)%chords.length],frequency=chord[[0,2,1,3,2,1,3,2][noteIndex%8]]*(noteIndex%3===0?2:1);const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();oscillator.type='sine';oscillator.frequency.value=frequency;gain.gain.setValueAtTime(0,nextNote);gain.gain.linearRampToValueAtTime(.075,nextNote+.15);gain.gain.exponentialRampToValueAtTime(.0001,nextNote+3.5);oscillator.connect(gain);gain.connect(master);oscillator.start(nextNote);oscillator.stop(nextNote+3.6);oscillator.onended=()=>{oscillator.disconnect();gain.disconnect();};nextNote+=.7;noteIndex++;}}
@@ -557,16 +583,37 @@ async function setMusic(on){if(on&&!audioContext){const Audio=window.AudioContex
 function createControls(){const definitions=[['숨쉬기','세기','숨쉬기 세기',0,.012,.0005],['숨쉬기','주기','숨쉬기 주기 (초)',2,7,.1],['시선','세기','시선 이동',0,2,.1],['깜빡임','최소간격','깜빡임 최소 간격 (초)',1,6,.1],['깜빡임','최대간격','깜빡임 최대 간격 (초)',2,10,.1],['깜빡임','시간','깜빡임 시간 (초)',.08,.4,.01],['고개','각도','고개 기울기 (도)',0,5,.1],['고개','시차','고개 시차',0,10,.5],['머리카락','세기','머리카락 움직임',0,2,.1],['머리카락','살랑임','머리카락 살랑임',0,2,.1],['머리카락','스프링','머리카락 탄성',10,80,1],['머리카락','감쇠','머리카락 감쇠',3,18,.5],['눌림','세기','눌림 깊이',0,30,1],['눌림','반경','눌림 범위',30,150,5],['눌림','드래그','달라붙음',0,1,.05],['눌림','최대끌림','최대 끌림 (px)',10,90,1],['눌림','스프링','손 따라옴 (탄성)',30,320,5],['눌림','감쇠','손 따라옴 (감쇠)',3,40,.5],['눌림','가슴관성','가슴 관성',0,1.5,.05],['음악','음량','음악 음량',0,.7,.01]];
   definitions.splice(3,0,['시선','좌우범위','눈동자 좌우 범위 (px)',0,3,.1],['시선','위범위','눈동자 위쪽 범위 (px)',0,.8,.05],['시선','아래범위','눈동자 아래쪽 범위 (px)',0,1,.05]);
   for(let i=definitions.length-1;i>=0;i--)if(definitions[i][0]==='깜빡임')definitions.splice(i,1);
-  definitions.unshift(['흥분','배율','흥분 상승 배율',0,3,.1],['흥분','감소','흥분 감소 속도',0,10,.5],['만족','배율','만족 상승 배율',0,3,.1],['만족','감소','만족 감소 속도',0,5,.1],['부위','팔주무름','팔 주무름 세기',0,.8,.05],['반응','하트눈','하트 눈',0,1,.05],['반응','나른함','나른하게 기울기 (도)',0,3,.1],['반응','팔움찔','팔 움찔 세기',0,2.5,.1],['반응','움찔빈도','팔 움찔 빈도',0,3,.1],['반응','눈감기','눈 풀림',0,.6,.02],['반응','입벌림','숨 몰아쉬기 (입)',0,1,.05],['반응','홍조','홍조 세기',0,1.5,.05],['하트','양','하트 양',0,3,.1],['눌림','미끄러짐','문지름 미끄러짐',0,3,.05],['눌림','문지름출렁','문지름 출렁임',0,3,.1],['효과음','음량','심장 소리',0,1,.05]);
+  definitions.unshift(['흥분','배율','흥분 상승 배율',0,3,.1],['흥분','감소','흥분 감소 속도',0,10,.5],['만족','배율','만족 상승 배율',0,3,.1],['만족','감소','만족 감소 속도',0,5,.1],['부위','팔주무름','팔 주무름 세기',0,.8,.05],['구간변화','만족이동','만족 시 적정속도 이동',-500,500,10],['구간변화','흥분이동','흥분 시 적정속도 이동',-500,500,10],['반응','하트눈','하트 눈',0,1,.05],['반응','나른함','나른하게 기울기 (도)',0,3,.1],['반응','팔움찔','팔 움찔 세기',0,2.5,.1],['반응','움찔빈도','팔 움찔 빈도',0,3,.1],['반응','눈감기','눈 풀림',0,.6,.02],['반응','입벌림','숨 몰아쉬기 (입)',0,1,.05],['반응','홍조','홍조 세기',0,1.5,.05],['하트','양','하트 양',0,3,.1],['눌림','미끄러짐','문지름 미끄러짐',0,3,.05],['눌림','문지름출렁','문지름 출렁임',0,3,.1],['효과음','음량','심장 소리',0,1,.05]);
   definitions.splice(definitions.length-1,0,['눌림','클릭탄성','클릭 출렁임',0,180,5],['눌림','가슴스프링','출렁임 탄성',30,100,2],['눌림','가슴감쇠','출렁임 감쇠',3,12,.2]);
   $('controls').replaceChildren();for(const [group,key,title,min,max,step] of definitions){const label=document.createElement('label');label.className='setting';const span=document.createElement('span'),text=document.createElement('span'),output=document.createElement('output'),input=document.createElement('input');text.textContent=title;output.value=CONFIG[group][key];input.type='range';input.min=min;input.max=max;input.step=step;input.value=CONFIG[group][key];input.id=`control-${group}-${key}`;output.htmlFor=input.id;span.append(text,output);label.append(span,input);input.addEventListener('input',()=>{CONFIG[group][key]=Number(input.value);output.value=input.value;if(group==='깜빡임')nextBlink=time+randomBlink();if(group==='음악'&&master&&musicOn)master.gain.setTargetAtTime(CONFIG.음악.음량,audioContext.currentTime,.1);});$('controls').append(label);}
 }
 function createLayerControls(){$('layers').replaceChildren();for(const r of records.filter(r=>!r.overlay).reverse()){const row=document.createElement('div');row.className='row';const label=document.createElement('label'),input=document.createElement('input'),text=document.createElement('span'),coords=document.createElement('small');input.type='checkbox';input.checked=r.enabled;text.textContent=r.name;coords.textContent=`${r.layer.left}, ${r.layer.top}`;label.append(input,text);row.append(label,coords);input.addEventListener('change',()=>{r.enabled=input.checked;r.mesh.visible=r.enabled;if(!started)app.render();});$('layers').append(row);}}
 $('start').addEventListener('click',startExperience);$('sound').addEventListener('click',()=>{if(!started){startExperience();return;}setMusic(!musicOn).catch(error=>{$('stats').textContent=error.message;});});
-$('settings').addEventListener('click',()=>{const show=$('panel').hidden;$('panel').hidden=!show;$('settings').setAttribute('aria-expanded',String(show));$('settings').setAttribute('aria-label',show?'효과 설정 닫기':'효과 설정 열기');});
-document.addEventListener('keydown',event=>{if(event.key==='Escape'){$('panel').hidden=true;$('settings').setAttribute('aria-expanded','false');$('settings').focus();}});
+// 설정과 배경 패널은 한 번에 하나만 열립니다.
+const PANELS={settings:['panel','효과 설정'],background:['bgPanel','배경 선택']};
+function togglePanel(button,show){for(const [id,[panel,name]] of Object.entries(PANELS)){const open=id===button&&show;$(panel).hidden=!open;$(id).setAttribute('aria-expanded',String(open));$(id).setAttribute('aria-label',name+(open?' 닫기':' 열기'));}}
+for(const id of Object.keys(PANELS))$(id).addEventListener('click',()=>togglePanel(id,$(PANELS[id][0]).hidden));
+document.addEventListener('keydown',event=>{if(event.key==='Escape'){const open=Object.keys(PANELS).find(id=>!$(PANELS[id][0]).hidden);togglePanel(null,false);if(open)$(open).focus();}});
+// ━━━ 배경 선택 ━━━
+let uploadedBackground=null;
+function backgroundList(){return uploadedBackground?[...CONFIG.배경.목록,uploadedBackground]:CONFIG.배경.목록;}
+function backgroundCss(item){return item.이미지?`url("${String(item.이미지).replace(/"/g,'%22')}")`:item.색||'transparent';}
+function setBackground(name,remember=true){
+  const item=backgroundList().find(b=>b.이름===name)||CONFIG.배경.목록[0];if(!item)return;
+  const css=backgroundCss(item);$('scene').style.background=item.이미지?css+' center/cover no-repeat':css;
+  $('sceneBlur').style.backgroundImage=item.이미지?css:'none';$('sceneBlur').style.opacity=item.이미지?1:0;
+  for(const button of $('bgList').children)button.setAttribute('aria-pressed',String(button.dataset.name===item.이름));
+  if(remember&&!item.임시)try{localStorage.setItem('masa.background',item.이름);}catch{}
+}
+function createBackgroundList(){
+  $('bgList').replaceChildren();
+  for(const item of backgroundList()){const button=document.createElement('button'),swatch=document.createElement('i');button.type='button';button.className='bg-option'+(item.색==='transparent'&&!item.이미지?' none':'');button.dataset.name=item.이름;swatch.style.background=item.이미지?backgroundCss(item)+' center/cover':item.색;if(item.색==='transparent')swatch.style.background='';button.append(swatch,item.이름);button.addEventListener('click',()=>setBackground(item.이름));$('bgList').append(button);}
+}
+$('bgFile').addEventListener('change',event=>{const file=event.target.files[0];if(!file)return;if(uploadedBackground)URL.revokeObjectURL(uploadedBackground.이미지);uploadedBackground={이름:'내 이미지',이미지:URL.createObjectURL(file),임시:true};createBackgroundList();setBackground('내 이미지');event.target.value='';});
+$('bgUpload').addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();$('bgFile').click();}});
+createBackgroundList();{let saved=null;try{saved=localStorage.getItem('masa.background');}catch{}setBackground(saved&&CONFIG.배경.목록.some(b=>b.이름===saved)?saved:CONFIG.배경.기본,false);}
 $('debug').checked=CONFIG.화면.디버그;$('layers').hidden=!CONFIG.화면.디버그;$('debug').addEventListener('change',()=>{CONFIG.화면.디버그=$('debug').checked;$('layers').hidden=!$('debug').checked;});
-$('reset').addEventListener('click',()=>{for(const group of Object.keys(DEFAULTS))Object.assign(CONFIG[group],structuredClone(DEFAULTS[group]));for(const r of records)r.enabled=!r.layer.hidden;arousal=heat=satisfy=relax=0;climax=calm=0;stageIndex=calmIndex=0;createControls();updateSweetBand();createLayerControls();nextBlink=time+randomBlink();$('debug').checked=CONFIG.화면.디버그;$('layers').hidden=!CONFIG.화면.디버그;if(master&&musicOn)master.gain.setTargetAtTime(CONFIG.음악.음량,audioContext.currentTime,.1);if(psd){updateModel(0);updateMeter(true);app.render();}});
+$('reset').addEventListener('click',()=>{for(const group of Object.keys(DEFAULTS))Object.assign(CONFIG[group],structuredClone(DEFAULTS[group]));for(const r of records)r.enabled=!r.layer.hidden;arousal=heat=satisfy=relax=0;climax=calm=0;stageIndex=calmIndex=0;createControls();updateSweetBand(true);createLayerControls();nextBlink=time+randomBlink();$('debug').checked=CONFIG.화면.디버그;$('layers').hidden=!CONFIG.화면.디버그;if(master&&musicOn)master.gain.setTargetAtTime(CONFIG.음악.음량,audioContext.currentTime,.1);if(psd){updateModel(0);updateMeter(true);app.render();}});
 $('file').addEventListener('change',async event=>{const file=event.target.files[0];if(!file)return;if(file.size>CONFIG.파일.최대용량MB*1024*1024){$('errorText').textContent='PSD 파일이 용량 제한을 초과했습니다.';return;}await init(await file.arrayBuffer());});
 document.querySelector('label[for=file]').addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();$('file').click();}});
 $('retry').addEventListener('click',()=>init());addEventListener('resize',resize);document.addEventListener('visibilitychange',()=>{if(document.hidden){app?.stop();if(press)press.active=false;audioContext?.suspend();}else{if(started){app?.start();if(musicOn)audioContext?.resume().then(()=>{nextNote=audioContext.currentTime+.05;});}}});
