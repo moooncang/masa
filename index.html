@@ -27,7 +27,7 @@ const CONFIG = {
   숨쉬기: { 세기: 0.003, 주기: 3.8, 머리따라가기: 0.95 },
   // 양쪽 눈에 같은 PSD 픽셀 이동량을 적용합니다. 눈별 폭으로 계산하지 않습니다.
   시선: { 세기: 0.8, 반응속도: 7, 좌우범위: 1.8, 위범위: 0.35, 아래범위: 0.65, 흰자노출한도: 0.025 },
-  깜빡임: { 최소간격: 2.6, 최대간격: 6, 시간: 0.18 },
+  깜빡임: { 사용: false, 최소간격: 2.6, 최대간격: 6, 시간: 0.18 },
   고개: { 각도: 1.05, 시차: 2.4, 반응속도: 7 },
   머리카락: { 세기: 0.8, 스프링: 28, 감쇠: 9, 살랑임: 0.25 },
   눌림: { 세기: 10, 반경: 72, 드래그: 0.3, 최대끌림: 38, 스프링: 105, 감쇠: 13,
@@ -147,7 +147,7 @@ function resize(){
   app.render();
 }
 function randomBlink(){const a=Math.max(.2,CONFIG.깜빡임.최소간격),b=Math.max(a,CONFIG.깜빡임.최대간격);return a+Math.random()*(b-a);}
-function blinkValue(){const phase=(time-blinkStart)/Math.max(.05,CONFIG.깜빡임.시간);if(phase<0||phase>=1)return 0;return phase<.4?smoothstep(0,.4,phase):1-smoothstep(.4,1,phase);}
+function blinkValue(){if(!CONFIG.깜빡임.사용)return 0;const phase=(time-blinkStart)/Math.max(.05,CONFIG.깜빡임.시간);if(phase<0||phase>=1)return 0;return phase<.4?smoothstep(0,.4,phase):1-smoothstep(.4,1,phase);}
 function headPoint(x,y,angle,dx,dy){const c=Math.cos(angle),s=Math.sin(angle);return {x:anchor.x+(x-anchor.x)*c-(y-anchor.y)*s+dx,y:anchor.y+(x-anchor.x)*s+(y-anchor.y)*c+dy};}
 function groupTransform(name,breath){const factor=name==='front hair'?1.12:BACK.has(name)?.8:1;return {angle:head.x*CONFIG.고개.각도*Math.PI/180,dx:head.x*CONFIG.고개.시차*factor,dy:breath*CONFIG.숨쉬기.머리따라가기+head.y*CONFIG.고개.시차*.18*factor};}
 function sampleAlpha(image,x,y){const x0=Math.floor(x),y0=Math.floor(y),fx=x-x0,fy=y-y0;const a=(px,py)=>px<0||py<0||px>=image.width||py>=image.height?0:image.data[(py*image.width+px)*4+3]/255;return lerp(lerp(a(x0,y0),a(x0+1,y0),fx),lerp(a(x0,y0+1),a(x0+1,y0+1),fx),fy);}
@@ -172,7 +172,7 @@ function updateModel(dt){
   const eyeSmooth=1-Math.exp(-CONFIG.시선.반응속도*dt);
   gaze.x=lerp(gaze.x,pointer.x,eyeSmooth);gaze.y=lerp(gaze.y,pointer.y,eyeSmooth);
   eyeShift=safeEyeShift();
-  if(time>=nextBlink){blinkStart=time;nextBlink=time+randomBlink();}
+  if(CONFIG.깜빡임.사용&&time>=nextBlink){blinkStart=time;nextBlink=time+randomBlink();}
   const phase=time*Math.PI*2/Math.max(.5,CONFIG.숨쉬기.주기);
   const blink=blinkValue(),open=1-blink*.97,breathScale=1+(Math.sin(phase)+.12*Math.sin(phase*2))*CONFIG.숨쉬기.세기;
   const breath=-(bounds.bottom-anchor.y)*(breathScale-1);
@@ -180,15 +180,15 @@ function updateModel(dt){
   for(let s=0;s<steps;s++){
     const speed=Math.max(1,CONFIG.고개.반응속도);
     spring(head,'x',pointer.x,speed*speed,2*speed,step);spring(head,'y',pointer.y,speed*speed,2*speed,step);
-    spring(pressSpring,'x',press?.active?press.dx:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
-    spring(pressSpring,'y',press?.active?press.dy:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
-    spring(pressSpring,'z',press?.active?1:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
+    spring(pressSpring,'x',press?.active?press.dx*press.gain:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
+    spring(pressSpring,'y',press?.active?press.dy*press.gain:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
+    spring(pressSpring,'z',press?.active?press.gain:0,CONFIG.눌림.스프링,CONFIG.눌림.감쇠,step);
     for(const r of records)if(HAIR.has(r.name)){
       const stiffness=r.name==='front hair'?1.3:r.name==='tail'?.7:1;
       spring(r.hair,'x',head.x,CONFIG.머리카락.스프링*stiffness,CONFIG.머리카락.감쇠,step);
       spring(r.hair,'y',head.y,CONFIG.머리카락.스프링*stiffness,CONFIG.머리카락.감쇠,step);
     }
-    for(const c of chest){const influence=press?Math.exp(-((c.cx-press.x)**2+(c.cy-press.y)**2)/(CONFIG.눌림.가슴반경**2*2)):0;
+    for(const c of chest){const influence=press?Math.exp(-((c.cx-press.x)**2+(c.cy-press.y)**2)/(CONFIG.눌림.가슴반경**2*2))*press.gain:0;
       spring(c,'x',pressSpring.x*influence*CONFIG.눌림.가슴관성,CONFIG.눌림.가슴스프링,CONFIG.눌림.가슴감쇠,step);
       spring(c,'y',(pressSpring.y+pressSpring.z*CONFIG.눌림.세기*.45)*influence*CONFIG.눌림.가슴관성,CONFIG.눌림.가슴스프링,CONFIG.눌림.가슴감쇠,step);
       c.x=clamp(c.x,-22,22);c.y=clamp(c.y,-22,22);
@@ -205,7 +205,7 @@ function updateModel(dt){
       if(name==='topwear'&&press){
         const radius=Math.max(15,CONFIG.눌림.반경),rx=x-press.x,ry=y-press.y,influence=Math.exp(-(rx*rx+ry*ry)/(radius*radius));
         const u=(base[i]-layer.left)/(layer.right-layer.left),v=(base[i+1]-layer.top)/(layer.bottom-layer.top);
-        const seam=Math.sin(Math.PI*clamp(u,0,1))**.65*smoothstep(0,.13,v)*(1-smoothstep(.76,1,v));
+        const seam=Math.sin(Math.PI*clamp(u,0,1))**.65*smoothstep(0,.13,v)*(1-smoothstep(.5,.62,v));
         // 옷의 외곽·목선·하단은 고정하고, 누른 부위 안쪽만 변형합니다.
         x+=seam*influence*(pressSpring.x-rx/radius*pressSpring.z*CONFIG.눌림.세기*.35);
         y+=seam*influence*(pressSpring.y+pressSpring.z*CONFIG.눌림.세기-ry/radius*pressSpring.z*CONFIG.눌림.세기*.3);
@@ -234,14 +234,15 @@ function hitTopwear(p,details=false){const r=byName.get('topwear');if(!r?.enable
   for(let n=0;n<indices.length;n+=3){const a=indices[n]*2,b=indices[n+1]*2,c=indices[n+2]*2;const ax=vertices[a],ay=vertices[a+1],bx=vertices[b],by=vertices[b+1],cx=vertices[c],cy=vertices[c+1];const det=(by-cy)*(ax-cx)+(cx-bx)*(ay-cy);if(Math.abs(det)<1e-7)continue;const wa=((by-cy)*(p.x-cx)+(cx-bx)*(p.y-cy))/det,wb=((cy-ay)*(p.x-cx)+(ax-cx)*(p.y-cy))/det,wc=1-wa-wb;if(wa<0||wb<0||wc<0)continue;const u=uv[a]*wa+uv[b]*wb+uv[c]*wc,v=uv[a+1]*wa+uv[b+1]*wb+uv[c+1]*wc;const px=clamp(Math.floor(u*r.pixels.width),0,r.pixels.width-1),py=clamp(Math.floor(v*r.pixels.height),0,r.pixels.height-1);if(r.pixels.data[(py*r.pixels.width+px)*4+3]<=30)return false;return details?{x:r.layer.left+u*r.pixels.width,y:r.layer.top+v*r.pixels.height}:true;}
   return false;
 }
-function chestImpulse(x,y,strength){const weights=chest.map(c=>Math.exp(-((c.cx-x)**2+(c.cy-y)**2)/(CONFIG.눌림.가슴반경**2)));const largest=Math.max(0,...weights);chest.forEach((c,i)=>{const weight=weights[i]+(largest>.3?.16*largest:0);c.vy=clamp(c.vy+strength*weight,-180,180);c.vx=clamp(c.vx+strength*.12*weight*(c.cx<x?-1:1),-90,90);});}
+function touchGain(x,y){const top=byName.get('topwear')?.layer;if(!top)return 0;const v=(y-top.top)/(top.bottom-top.top),radius=CONFIG.눌림.가슴반경;const weights=chest.map(c=>Math.max(0,1-((x-c.cx)/(radius*1.35))**2-((y-c.cy)/radius)**2)**2);return Math.max(0,...weights)*(1-smoothstep(.5,.62,v));}
+function chestImpulse(x,y,strength){const gain=touchGain(x,y),weights=chest.map(c=>Math.exp(-((c.cx-x)**2+(c.cy-y)**2)/(CONFIG.눌림.가슴반경**2))*gain);const largest=Math.max(0,...weights);chest.forEach((c,i)=>{const weight=weights[i]+(largest>.3?.16*largest:0);c.vy=clamp(c.vy+strength*weight,-180,180);c.vx=clamp(c.vx+strength*.12*weight*(c.cx<x?-1:1),-90,90);});}
 function release(event){if(press?.active&&event.pointerId===press.id){
   if(event.type==='pointerup'&&time-press.start>.12)chestImpulse(press.x,press.y,-CONFIG.눌림.클릭탄성*.38);
   press.active=false;try{app.view.releasePointerCapture(event.pointerId);}catch{}app.view.style.cursor='default';
 }if(event.pointerType==='touch')pointer={x:0,y:0};}
 function bindPointer(){const canvas=app.view;canvas.addEventListener('pointermove',movePointer);canvas.addEventListener('pointerdown',event=>{
   if(!started){startExperience();return;}if(press?.active)return;movePointer(event);const p=modelPoint(event),hit=hitTopwear(p,true);
-  if(hit){press={id:event.pointerId,x:hit.x,y:hit.y,originX:p.x,originY:p.y,dx:0,dy:0,start:time,active:true};pressSpring={x:0,y:0,z:0,vx:0,vy:0,vz:4};chestImpulse(hit.x,hit.y,CONFIG.눌림.클릭탄성);try{canvas.setPointerCapture(event.pointerId);}catch{}canvas.style.cursor='grabbing';}
+  if(hit){const gain=touchGain(hit.x,hit.y);press={id:event.pointerId,x:hit.x,y:hit.y,originX:p.x,originY:p.y,dx:0,dy:0,gain,start:time,active:true};pressSpring={x:0,y:0,z:0,vx:0,vy:0,vz:4*gain};chestImpulse(hit.x,hit.y,CONFIG.눌림.클릭탄성);try{canvas.setPointerCapture(event.pointerId);}catch{}canvas.style.cursor='grabbing';}
 });canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',release);canvas.addEventListener('pointerleave',()=>{if(!press?.active)pointer={x:0,y:0};});}
 
 async function init(buffer){const sequence=++loadSequence;loading=true;$('message').hidden=true;$('loading').hidden=false;$('start').disabled=true;
@@ -264,6 +265,7 @@ async function setMusic(on){if(on&&!audioContext){const Audio=window.AudioContex
 }
 function createControls(){const definitions=[['숨쉬기','세기','숨쉬기 세기',0,.012,.0005],['숨쉬기','주기','숨쉬기 주기 (초)',2,7,.1],['시선','세기','시선 이동',0,2,.1],['깜빡임','최소간격','깜빡임 최소 간격 (초)',1,6,.1],['깜빡임','최대간격','깜빡임 최대 간격 (초)',2,10,.1],['깜빡임','시간','깜빡임 시간 (초)',.08,.4,.01],['고개','각도','고개 기울기 (도)',0,5,.1],['고개','시차','고개 시차',0,10,.5],['머리카락','세기','머리카락 움직임',0,2,.1],['머리카락','살랑임','머리카락 살랑임',0,2,.1],['머리카락','스프링','머리카락 탄성',10,80,1],['머리카락','감쇠','머리카락 감쇠',3,18,.5],['눌림','세기','눌림 깊이',0,30,1],['눌림','반경','눌림 범위',30,150,5],['눌림','드래그','끌림 세기',0,.8,.05],['눌림','스프링','옷의 탄성',30,160,5],['눌림','감쇠','옷의 감쇠',3,20,.5],['눌림','가슴관성','가슴 관성',0,1.5,.05],['음악','음량','음악 음량',0,.7,.01]];
   definitions.splice(3,0,['시선','좌우범위','눈동자 좌우 범위 (px)',0,3,.1],['시선','위범위','눈동자 위쪽 범위 (px)',0,.8,.05],['시선','아래범위','눈동자 아래쪽 범위 (px)',0,1,.05]);
+  for(let i=definitions.length-1;i>=0;i--)if(definitions[i][0]==='깜빡임')definitions.splice(i,1);
   definitions.splice(definitions.length-1,0,['눌림','클릭탄성','클릭 출렁임',0,180,5],['눌림','가슴스프링','출렁임 탄성',30,100,2],['눌림','가슴감쇠','출렁임 감쇠',3,12,.2]);
   $('controls').replaceChildren();for(const [group,key,title,min,max,step] of definitions){const label=document.createElement('label');label.className='setting';const span=document.createElement('span'),text=document.createElement('span'),output=document.createElement('output'),input=document.createElement('input');text.textContent=title;output.value=CONFIG[group][key];input.type='range';input.min=min;input.max=max;input.step=step;input.value=CONFIG[group][key];input.id=`control-${group}-${key}`;output.htmlFor=input.id;span.append(text,output);label.append(span,input);input.addEventListener('input',()=>{CONFIG[group][key]=Number(input.value);output.value=input.value;if(group==='깜빡임')nextBlink=time+randomBlink();if(group==='음악'&&master&&musicOn)master.gain.setTargetAtTime(CONFIG.음악.음량,audioContext.currentTime,.1);});$('controls').append(label);}
 }

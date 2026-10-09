@@ -189,9 +189,11 @@ A single-pixel quiet bronze edge, rounded corners, inset shading, and a short bo
 
 The current default breathing strength is (.003) over (3.8s), with a small second harmonic (.12) and head follow (.95). Head movement uses a critically damped spring at response speed (7), shared rotation limited by the configured angle (1.05 degrees), and small parallax (2.4 PSD pixels). Hair roots remain pinned; delayed spring response (stiffness 28, damping 9), strength (.8), and restrained sway (.25) increase toward the free ends.
 
-Both irises share a single safe translation rather than separate eye-width offsets. Default gaze strength is (.8), response speed (7), with configured range limits of (1.8 PSD pixels horizontal, .35 upward, .65 downward), further softened by `tanh`. Real alpha samples cap added white exposure at (.025). Blinks occur between (2.6s) and (6s), last (.18s), close over the first (40%) and reopen over the remaining (60%). Their deformation axis follows each eye's alpha-derived incline, keeping iris, white, lash, and mask transformations aligned.
+Both irises share a single safe translation rather than separate eye-width offsets. Default gaze strength is (.8), response speed (7), with configured range limits of (1.8 PSD pixels horizontal, .35 upward, .65 downward), further softened by `tanh`. Real alpha samples cap added white exposure at (.025). Automatic blinking is disabled by user request and its range controls are removed. The gaze and actual eye alpha masks remain active.
 
 Direct presses apply a local impulse and spring deformation inside the clothing while pinning the neckline, side seams, and lower edge. Cloth uses depth (10), radius (72), drag (.3), maximum drag (38), stiffness (105), and damping (13). A separate underdamped chest response uses impulse (110), stiffness (58), damping (4.8), inertia (.9), and radius (90); displacement is bounded to (22 PSD pixels) per axis. Reduced motion also scales the click impulse by (.4), and resetting controls preserves those reduced-motion defaults.
+
+Waist touches have zero deformation gain. All touch deformation fades between normalized clothing heights (.50) and (.62), leaving the lower torso fixed apart from breathing. Compact influence bounds prevent waist presses and drags from exciting the upper clothing springs.
 
 ## Do's and Don'ts
 

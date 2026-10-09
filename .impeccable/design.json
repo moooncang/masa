@@ -263,13 +263,13 @@
       },
       {
         "name": "inclined-blink",
-        "value": "interval 2.6–6s; duration 0.18s; close 40%; open 60%; remaining opening 0.03",
-        "purpose": "Alpha-derived inclined eye deformation aligned with white, iris, lash, and mask transforms."
+        "value": "disabled; no blink controls",
+        "purpose": "Automatic blinking removed by user request; gaze and alpha masking remain active."
       },
       {
         "name": "seam-pinned-cloth",
         "value": "depth 10; radius 72; drag 0.3; maximum drag 38; stiffness 105; damping 13",
-        "purpose": "Local clothing indentation and drag with pinned outer seams, neckline, and lower edge."
+        "purpose": "Local clothing indentation and drag with pinned seams; zero waist input gain and deformation fade between normalized heights 0.50 and 0.62."
       },
       {
         "name": "chest-impulse-default",
