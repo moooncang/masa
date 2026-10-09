@@ -228,3 +228,13 @@ This section supersedes the earlier sand-on-slate palette, the Georgia display s
 - **Feedback.** Pills at the hand show '민감♥', '딱 좋아요♪', or '너무 세요!'. Hovering a zone shows a tag (가슴 · 민감♥ / 어깨·팔 · 뭉침 / 허리 · 뭉침) and a hand cursor.
 - **Narrow crop.** When width-bound, the portrait trims the arm ends (minimum 620 PSD px around x 470) so the character stays large on phones.
 - **Shadows.** Overlays use neutral black shadows only; colored glow lives in canvas particles, not CSS.
+
+## Massage Mode (v3 game layer)
+
+- **Toolbar.** Four pill-cornered (12px) buttons: 손, 오일, 상태 복사, 끝내기. Wide screens stack them 2×2 under the HUD card; narrow screens put one row of four at the bottom and hide the footer hint. The active tool uses `aria-pressed`; oil's pressed state is amber (`#f2c27a` edge on `#3a2a1c`), the only amber in the system, tied to the oil drops and oil glow.
+- **Request banner.** Centered on the portrait's top edge (moved 52px down on portraits narrower than 560px so it clears the timer). Label tinted by meaning: calm mint for massage requests, love pink for chest. A white-alpha bar shows time left; the colored bar shows progress.
+- **Timer.** Course mode only. A pill at the portrait's top-left; turns amber under 20 seconds.
+- **Close-up cut-in.** A rounded (12px) face render at the portrait's top-right, about 38% of portrait width, bordered pink for arousal moments and mint for bliss. It slides in 40px from the right.
+- **Result card.** Modal over a blurred dim backdrop. The grade letter uses the story face at 76px; S is gold `#ffd27a`, A love, B calm, C muted. Stats sit in a two-column definition list between hairlines. Actions: 상태 복사, 계속하기 (secondary) and 새로 시작 (primary).
+- **Feedback pills.** Two new kinds: `info` (neutral panel) for hints and fatigue, `gold` for knot release and completed requests.
+- **Wet oil look.** Oiled areas get a multiply tint (warm beige on the shirt, lighter on skin) so the fabric reads as damp and see-through, plus a screen-blended sheen that follows the artwork's own highlights rather than a uniform stripe.
