@@ -1,19 +1,20 @@
-// itch.io 업로드용 zip을 만듭니다. itch는 게임을 별도 도메인의 iframe에서 돌리므로
-// PixiJS를 CDN 대신 zip 안(lib/)에 넣어 외부 스크립트 없이 실행되게 합니다. PSD는 넣지 않습니다(레이어 이미지만 사용).
+// 배포용 폴더(dist/web)와 zip(dist/reina-massage.zip)을 만듭니다. Cloudflare Pages와 itch.io 모두 이 결과물을 그대로 씁니다.
+// PixiJS를 CDN 대신 lib/에 넣어 외부 스크립트 없이 실행되게 하고(itch는 별도 도메인 iframe에서 실행), PSD는 넣지 않습니다(레이어 이미지만 사용).
+// _headers는 Cloudflare Pages의 캐시 설정이며, 다른 곳에서는 무시됩니다.
 //
 // 사용법 (저장소 루트에서):
 //   npm install --no-save pixi.js@7.4.3
-//   node tools/build-itch.cjs
-// 다른 위치의 pixi.min.js를 쓰려면: node tools/build-itch.cjs <pixi.min.js 경로>
+//   node tools/build-dist.cjs
+// 다른 위치의 pixi.min.js를 쓰려면: node tools/build-dist.cjs <pixi.min.js 경로>
 'use strict';
 const fs = require('fs'), path = require('path'), zlib = require('zlib');
 
 const CDN = 'https://cdn.jsdelivr.net/npm/pixi.js@7.4.3/dist/pixi.min.js';
 const pixiPath = process.argv[2] || 'node_modules/pixi.js/dist/pixi.min.js';
-const output = 'dist/reina-massage-itch.zip';
+const output = 'dist/reina-massage.zip', folder = 'dist/web';
 
 const html = fs.readFileSync('index.html', 'utf8');
-if (!html.includes(CDN)) throw new Error('index.html에서 PixiJS CDN 주소를 찾지 못했습니다. tools/build-itch.cjs의 CDN 값을 맞춰주세요.');
+if (!html.includes(CDN)) throw new Error('index.html에서 PixiJS CDN 주소를 찾지 못했습니다. tools/build-dist.cjs의 CDN 값을 맞춰주세요.');
 const pixi = fs.readFileSync(pixiPath);
 if (!pixi.subarray(0, 200).toString().includes('v7.4.3')) throw new Error(`${pixiPath}가 pixi.js v7.4.3이 아닙니다.`);
 if (!fs.existsSync('assets/layers/manifest.json')) throw new Error('assets/layers가 없습니다. 먼저 tools/export-layers.cjs를 실행하세요.');
@@ -21,6 +22,7 @@ if (!fs.existsSync('assets/layers/manifest.json')) throw new Error('assets/layer
 const files = [
   ['index.html', Buffer.from(html.replace(CDN, './lib/pixi.min.js'))],
   ['lib/pixi.min.js', pixi],
+  ['_headers', Buffer.from('/lib/*\n  Cache-Control: public, max-age=31536000, immutable\n/assets/*\n  Cache-Control: public, max-age=86400\n')],
   ...fs.readdirSync('assets/layers').sort().map(file => [`assets/layers/${file}`, fs.readFileSync(path.join('assets/layers', file))]),
 ];
 
@@ -41,6 +43,7 @@ for (const [name, data] of files) {
 }
 const directory = Buffer.concat(centrals), end = Buffer.alloc(22);
 end.writeUInt32LE(0x06054b50, 0); end.writeUInt16LE(files.length, 8); end.writeUInt16LE(files.length, 10); end.writeUInt32LE(directory.length, 12); end.writeUInt32LE(offset, 16);
-fs.mkdirSync(path.dirname(output), { recursive: true });
+fs.rmSync(folder, { recursive: true, force: true });
+for (const [name, data] of files) { const target = path.join(folder, name); fs.mkdirSync(path.dirname(target), { recursive: true }); fs.writeFileSync(target, data); }
 fs.writeFileSync(output, Buffer.concat([...locals, directory, end]));
-console.log(`${files.length}개 파일 → ${output} (${(fs.statSync(output).size / 1048576).toFixed(2)}MB)`);
+console.log(`${files.length}개 파일 → ${folder}/ 와 ${output} (${(fs.statSync(output).size / 1048576).toFixed(2)}MB)`);

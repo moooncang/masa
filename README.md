@@ -73,13 +73,16 @@ PSD 순서를 유지하되 눈 레이어가 차지하던 슬롯만 흰자 → �
 - **소리·진동**: 손 속도에 맞춘 문지르는 소리(오일이면 젖은 소리), 오일 방울, 요청 알림, 흥분도에 따라 차오르는 BGM 패드와 빨라지는 템포. 모바일은 움찔·뭉침 풀림·절정·심장 박동에 진동합니다(설정에서 끌 수 있음).
 - **설정 패널**: 자주 쓰는 항목만 먼저 보이고, 나머지는 "세부 조절 (개발자)"에 접혀 있습니다.
 
-## itch.io 배포
+## 배포 (Cloudflare Pages · itch.io)
 
-itch.io는 게임을 별도 도메인의 iframe에서 실행하므로 PixiJS까지 zip 안에 넣은 배포본을 씁니다. 저장소 루트에서:
+저장소 루트에서:
 
 ```bash
 npm install --no-save pixi.js@7.4.3
-node tools/build-itch.cjs
+node tools/build-dist.cjs
 ```
 
-`dist/reina-massage-itch.zip`(약 1.2MB)이 만들어집니다. itch.io 프로젝트의 종류를 HTML로 하고 이 zip을 올린 뒤 "브라우저에서 플레이"를 체크하세요. 권장 화면 크기는 1280×800, 모바일 지원과 전체화면 버튼을 켜두면 됩니다. itch 페이지 주소에 붙인 `?흥분=40` 같은 링크 파라미터는 iframe 안까지 전달되지 않으니, 링크 시작 상태가 필요하면 GitHub Pages 주소를 쓰세요.
+`dist/web/` 폴더와 `dist/reina-massage.zip`(약 1.2MB)이 만들어집니다. PixiJS가 `lib/`에 들어 있어 외부 CDN 없이 실행되고, `_headers`는 Cloudflare Pages용 캐시 설정입니다.
+
+- **Cloudflare Pages**: 대시보드 Workers & Pages → 만들기 → Pages → 에셋 업로드(Direct Upload)에서 `dist/web` 폴더나 zip을 올립니다. 다시 배포할 땐 같은 프로젝트에 새 배포를 올리면 됩니다. CLI를 쓰려면 `npx wrangler pages deploy dist/web --project-name <프로젝트 이름>`.
+- **itch.io**: 프로젝트 종류를 HTML로 하고 zip을 올린 뒤 "브라우저에서 플레이"를 체크합니다. 권장 화면 크기 1280×800. itch는 iframe에서 실행되므로 주소 뒤 `?흥분=40` 같은 파라미터는 전달되지 않습니다.
